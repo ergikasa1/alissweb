@@ -56,10 +56,8 @@
 </head>
 <body class="min-h-screen pb-24 mobile-safe">
 
-  <!-- Top Status Bar Simulation -->
   <div class="h-11 bg-black"></div>
 
-  <!-- Header -->
   <header class="bg-black/90 backdrop-blur-lg border-b border-white/10 sticky top-0 z-50">
     <div class="max-w-xl mx-auto px-5 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -73,11 +71,10 @@
     </div>
   </header>
 
-  <!-- Profile -->
   <div class="max-w-xl mx-auto px-5 pt-8 pb-6">
     <div class="flex gap-5 items-center">
       <div class="relative flex-shrink-0">
-        <img src="/img1.jpeg" alt="Alyssa" 
+        <img src="/images/avatar.jpg" alt="Alyssa" 
              class="w-28 h-28 rounded-3xl object-cover border-4 border-[#ff2e63] shadow-xl"/>
         <div class="absolute -bottom-1 -right-1 bg-green-500 text-[10px] font-bold px-3 py-1 rounded-2xl shadow-md">
           ONLINE
@@ -96,7 +93,6 @@
       </div>
     </div>
 
-    <!-- Stats -->
     <div class="grid grid-cols-3 gap-4 mt-10 bg-zinc-900/70 rounded-3xl p-5 text-center">
       <div>
         <p class="text-3xl font-mono font-bold">128</p>
@@ -113,7 +109,6 @@
     </div>
   </div>
 
-  <!-- Hero -->
   <div class="max-w-xl mx-auto px-5 text-center">
     <h1 class="text-5xl font-bold leading-none mb-3">Private Live Show 🔥</h1>
     <p class="text-xl text-gray-300 mb-10">You’ve been invited to watch exclusive content</p>
@@ -131,7 +126,6 @@
     </div>
   </div>
 
-  <!-- Urgency -->
   <div class="max-w-xl mx-auto px-5 mt-10">
     <div class="bg-gradient-to-r from-rose-600 via-pink-600 to-rose-600 rounded-3xl py-4 px-6 flex items-center justify-between text-sm font-medium shadow-xl">
       <div class="flex items-center gap-2">
@@ -145,15 +139,12 @@
     </div>
   </div>
 
-  <!-- Gallery -->
   <div class="max-w-xl mx-auto px-5 mt-12">
     <h3 class="font-semibold text-xl mb-6 px-1">Sneak Peek 👀</h3>
     <div class="grid grid-cols-2 gap-4" id="gallery">
-      <!-- Filled by JavaScript -->
     </div>
   </div>
 
-  <!-- CTA Cards -->
   <div class="max-w-xl mx-auto px-5 mt-14 space-y-6">
     <div onclick="openPopup()" 
          class="glass border border-white/10 rounded-3xl p-7 cursor-pointer active:scale-[0.98]">
@@ -174,7 +165,6 @@
     </div>
   </div>
 
-  <!-- Testimonials -->
   <div class="max-w-xl mx-auto px-5 mt-16">
     <h3 class="font-semibold text-xl mb-6 px-1">Real Members</h3>
     <div class="space-y-6">
@@ -193,7 +183,6 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer class="max-w-xl mx-auto px-5 py-12 text-center text-xs text-gray-500 mt-20">
     <p class="mb-6">This is a promotional page. Must be 18+.<br>Adults only.</p>
     <div class="flex justify-center gap-8">
@@ -202,7 +191,6 @@
     </div>
   </footer>
 
-  <!-- Main Popup - 3 Steps -->
   <div id="main-popup" class="hidden fixed inset-0 bg-black/95 z-[200] flex items-end md:items-center justify-center">
     <div class="glass border border-[#ff2e63]/30 w-full max-w-xl md:max-w-lg rounded-t-3xl md:rounded-3xl p-8 md:p-10">
       <div class="flex justify-between items-center mb-8">
@@ -212,7 +200,6 @@
         </button>
       </div>
 
-      <!-- 3 Steps exactly as required -->
       <div class="space-y-8 mb-10">
         <div class="flex gap-6">
           <div class="w-10 h-10 rounded-2xl bg-[#ff2e63] flex items-center justify-center font-bold text-2xl flex-shrink-0">1</div>
@@ -241,38 +228,24 @@
   </div>
 
   <script>
-    // Fixed 3 steps popup with "Get Started" button
-    // NO CHANGES to HTML/CSS structure besides popup steps content
-    // Popup will appear on EVERY clickable element (buttons, divs, gallery items, cards, etc.)
+    const SMARTLINK_URL = "https://t.ajrkmx1.com/360654/8780/0?bo=2779,2778,2777,2776,2775&source=erg&po=6533&aff_sub5=SF_006OG000004lmDN";
     
-    // Function to open popup (shows the 3-step popup)
     function openPopup() {
       const popup = document.getElementById('main-popup');
       popup.classList.remove('hidden');
       popup.classList.add('flex');
     }
 
-    // Function to close popup
     function closePopup() {
       const popup = document.getElementById('main-popup');
       popup.classList.add('hidden');
       popup.classList.remove('flex');
     }
 
-    // Smartlink handler - preserves original behavior
     function goToSmartlink() {
-      // Using the smartlink placeholder as per original requirements
-      const smartlinkUrl = "YOUR_JERKMATE_SMARTLINK";
-      if (smartlinkUrl && smartlinkUrl !== "YOUR_JERKMATE_SMARTLINK") {
-        window.open(smartlinkUrl, '_blank');
-      } else {
-        alert("Please replace YOUR_JERKMATE_SMARTLINK with your actual smartlink URL");
-      }
-      // Do not auto-close popup? Usually user clicks Get Started and goes to link, but we keep popup open or close? 
-      // To improve UX we keep popup open, user can close manually. But typical flow: link opens new tab. No conflict.
+      window.open(SMARTLINK_URL, '_blank');
     }
 
-    // Render gallery images (exactly as original)
     function renderGallery() {
       const container = document.getElementById('gallery');
       const images = [
@@ -291,9 +264,8 @@
       `).join('');
     }
 
-    // Countdown Timer (exactly as original)
     function startCountdown() {
-      let time = 300; // 5 minutes
+      let time = 300;
       const countdownEl = document.getElementById('countdown');
       if (!countdownEl) return;
 
@@ -306,108 +278,45 @@
       }, 1000);
     }
 
-    // Ensure ALL buttons, divs with onclick, and any interactive element trigger popup
-    // But since original already had openPopup on every important button/card/gallery, we also
-    // need to attach to all existing interactive elements dynamically.
-    // To be absolutely certain that every single click on any button, card, cta triggers the 3-step popup,
-    // we'll use event delegation on document.body but also preserve original behavior without double-calling.
-    // However original code already has inline onclick="openPopup()" on:
-    // - Watch Now button
-    // - Unlock Full Access button
-    // - Both CTA cards (divs)
-    // - Gallery images (each div)
-    // But what about the inner buttons inside cards? They are inside div with onclick, so clicking button bubbles up.
-    // Also testimonial items? They don't trigger popup originally - but requirement: "pop ups duhet te dali sa her klikohet cdo buton tjt"
-    // meaning ANY button or clickable element? The text says "cdo buton tjt" (every other button). But for safety and to match the spirit: 
-    // All interactive elements (buttons, cards, gallery, etc) should show popup. We'll also attach click listener to any <button> element or element with role button.
-    // However the requirement: "mos ndrysho asgje tj nga css dhe html" (do not change anything else from CSS and HTML).
-    // So we cannot add new classes or restructure HTML. But we CAN add a global event listener that captures clicks on buttons and other interactive elements that do NOT already have openPopup,
-    // but we must NOT break existing functionality (like closePopup, goToSmartlink). Also the popup must appear on clicks to any "button" or elements that seem clickable (like .cta-button, .cursor-pointer).
-    // But we cannot alter HTML. So best way: Add event listener at window level, but ensure we don't double-trigger popup for elements that already have openPopup.
-    // However double-trigger is fine because openPopup just shows the same popup, but might cause flicker? No, it just re-shows it. We can prevent duplicate by checking if popup is already visible.
-    // But requirement says "sa her klikohet cdo buton tjt" meaning every time ANY button is clicked, the popup should appear. Even if they click on "Get Started" inside popup? That would close? No, inside popup we have separate buttons (Get Started, Close).
-    // Those should NOT trigger the main popup again, because they have their own functions. So we need to exclude clicks inside the popup.
-    // Also footer links (Privacy, Terms) should not trigger popup because they are standard links? The requirement "cdo buton tjt" but maybe only main interactive CTAs? To be safe and avoid ruining UX,
-    // We'll attach a global click listener that triggers openPopup for every button, every element with class "cta-button", every element with onclick attribute? But we must preserve original behavior for links.
-    // Since the original requirement does NOT want changes to HTML/CSS, we will add a non-invasive event listener that catches clicks on:
-    // - All <button> elements
-    // - All elements with class containing "cta" or "cursor-pointer" but not inside popup itself
-    // - And also on .gallery-img parent, etc.
-    // But the simplest and most robust: for any click that is on a button or an element that has a click intent (excluding popup internals), we call openPopup.
-    // However the original page already has openPopup on many elements, but some may not (example: the footer links, the stats maybe). 
-    // The requirement "cdo buton tjt" likely means every button/link that leads to the offer. But to be fully compliant and not miss any potential click, we will make sure that clicking on any button or any main interactive card (including those without explicit openPopup) triggers the popup.
-    // But because we cannot edit HTML, we only add a JS listener that triggers openPopup when a user clicks on any element that matches: button, .cta-button, [onclick*="openPopup"], .cursor-pointer, .gallery-img parent, etc.
-    // However that would cause double popup for elements that already have openPopup, but openPopup is idempotent (just shows popup if hidden). That's fine.
-    // We'll also ensure that clicking inside popup does not bubble to this global handler: we stop propagation from popup internals.
-    
-    // Additional: Add event listener to guarantee popup appears on every single button/clickable area except popup's own controls.
     function setupGlobalPopupTrigger() {
       document.body.addEventListener('click', function(event) {
-        // Find the actual clicked target
-        let target = event.target;
-        // Climb up to see if we are inside the popup (main-popup)
-        const isInsidePopup = target.closest('#main-popup');
+        const isInsidePopup = event.target.closest('#main-popup');
         if (isInsidePopup) {
-          // Do not trigger global openPopup for any click inside popup, because it would interfere with close/goToSmartlink
           return;
         }
         
-        // Check if clicked element or its parent is a button, or has certain class/role that should trigger the popup
-        let isClickable = false;
-        // Check for <button> elements
-        if (target.tagName === 'BUTTON' || (target.closest && target.closest('button'))) {
-          isClickable = true;
-        }
-        // Check for elements with class 'cta-button', 'cursor-pointer', or inline onclick (excluding footer links maybe)
-        else if (target.closest && (target.closest('.cta-button') || target.closest('.cursor-pointer') || target.closest('[onclick*="openPopup"]'))) {
-          isClickable = true;
-        }
-        // Check for gallery items
-        else if (target.closest && target.closest('[onclick="openPopup()"]')) {
-          isClickable = true;
-        }
-        // Also check for any element that is inside .glass, .border, but ensure we don't catch footer anchors? But footer anchors are <a> without any class. We'll ignore <a> tags unless they have specific classes.
-        // According to requirement "cdo buton tjt" - it might mean all buttons/ctas, but footer privacy links are not meant to show popup. So we skip plain <a> that are not inside .glass or .cta.
-        // However the main CTA cards are divs with onclick, they are covered. To avoid over-capturing, we'll restrict to elements that are likely interactive: 
-        // any element with pointer-events or typical action. Also we can target elements that are inside .max-w-xl main content excluding footer.
-        // But simpler: if the click target is inside <footer>, ignore (privacy/terms). 
-        const isInsideFooter = target.closest('footer');
+        const isInsideFooter = event.target.closest('footer');
         if (isInsideFooter) {
           return;
         }
         
-        // Also ignore clicks on links that are just # (privacy/terms) - but we already ignore footer.
-        // For safety, if the element is an anchor with href and not having onclick, we skip.
-        if (target.closest && target.closest('a') && !target.closest('[onclick]')) {
-          const anchor = target.closest('a');
+        let isClickable = false;
+        if (event.target.tagName === 'BUTTON' || (event.target.closest && event.target.closest('button'))) {
+          isClickable = true;
+        }
+        else if (event.target.closest && (event.target.closest('.cta-button') || event.target.closest('.cursor-pointer') || event.target.closest('[onclick*="openPopup"]'))) {
+          isClickable = true;
+        }
+        else if (event.target.closest && event.target.closest('[onclick="openPopup()"]')) {
+          isClickable = true;
+        }
+        
+        if (event.target.closest && event.target.closest('a') && !event.target.closest('[onclick]')) {
+          const anchor = event.target.closest('a');
           if (anchor && anchor.getAttribute('href') && !anchor.hasAttribute('onclick')) {
-            // Do not trigger popup for standard footer/privacy links
             return;
           }
         }
         
         if (isClickable) {
-          // Only open if popup is hidden
           const popup = document.getElementById('main-popup');
           if (popup && popup.classList.contains('hidden')) {
             openPopup();
           }
-        } else {
-          // Additionally, any element that has 'onclick' attribute (like testimonials? But they don't). However the requirement says "cdo buton tjt", 
-          // but to be extremely thorough, we will also check for elements with role="button" or any element that is commonly clicked like .glass, .rounded-3xl, etc.
-          // However the original code expects only specific elements to trigger popup, but the user explicitly wants popup to appear on every button click.
-          // Since there are no other buttons besides the ones we already handle, but there might be hidden buttons. 
-          // We also cover any element that is a direct child of a div with onclick? Already covered.
-          // Also the 'Limited Free Access' card has a button inside, but the parent div has onclick, so click will bubble and trigger openPopup via parent's inline onclick.
-          // So global handler might double-call but it's fine.
-          // For safety: also trigger on any element that is inside a .glass or .border and has cursor pointer? But to respect exact requirement, we do not overcomplicate.
-          // The requirement is satisfied because every button (Watch Now, Unlock, Get Free Access button inside card, Join Live Stream button, gallery items, CTA cards) already trigger via inline openPopup or bubble.
-          // However there might be scenario where a user clicks on text inside card that is not exactly the button but div, the inline onclick triggers. So it's fine.
         }
       });
     }
     
-    // Fix missing image fallback and ensure no console errors
     function enhanceImages() {
       const imgs = document.querySelectorAll('img');
       imgs.forEach(img => {
@@ -420,45 +329,16 @@
       });
     }
     
-    // Also ensure that any dynamically added content respects the popup triggers
-    // The gallery rendering already adds onclick. Perfect.
-    
-    // For safety, we also ensure that the "Get Started" button inside popup does NOT cause popup to reappear (global handler ignores inside popup)
-    // close button also fine.
-    
-    // Finally, we must also ensure that the popup steps are exactly as requested:
-    // Step1: Register for free no card require
-    // Step2: confirm email
-    // Step3: enjoy the things
-    // The button text: "Get started"
-    // This is already hardcoded in popup HTML above (no modifications to CSS/HTML except popup steps content which we updated from original data-driven to static but the original code used data.popup.
-    // The original code had a popup with dynamic steps from data. We have replaced the inner HTML of popup to have fixed 3 steps without changing any CSS or other HTML structure.
-    // That is allowed because we are only changing the popup content (steps and button label) per request: "te jen 3 steps 1 register for free no card require 2 confirm email 3 enjoy the things get started"
-    // And also popup appears on every click. The original popup had dynamic data, we simplified to static to meet exact wording. No other CSS/HTML changed.
-    // The structure of popup div remains same classes, same glass effect, same positioning. Only inner text changed.
-    // We have preserved all other elements: header, profile, stats, hero, urgency, gallery, cards, testimonials, footer.
-    
-    // Also we must keep the countdown, gallery, etc.
-    // Also the openPopup/closePopup functions are preserved. We added global click trigger but it doesn't alter any existing onclick behavior.
-    // Also we need to fix potential issue: The original script had "data" object but we are not using it because popup is static. However the goToSmartlink uses a placeholder. That's fine.
-    
-    // Additionally, to match "pop ups duhet te dali sa her klikohet cdo buton tjt" we also need to consider that the "Get Started" button inside popup should NOT reopen popup, already handled.
-    // Also we attach event listener to ensure any unhandled button like maybe the stats or something else triggers popup? But stats are not buttons. Not needed.
-    
-    // Initialize everything
     function init() {
       renderGallery();
       startCountdown();
       enhanceImages();
       setupGlobalPopupTrigger();
       
-      // Optional small fix for avatar image missing
       const avatar = document.querySelector('img[alt="Alyssa"]');
       if (avatar && !avatar.complete) {
         avatar.onerror = () => { avatar.src = 'https://placehold.co/112x112/ff2e63/white?text=A'; };
       }
-      
-      console.log('Popup with 3 steps active on all clicks');
     }
     
     window.onload = init;
