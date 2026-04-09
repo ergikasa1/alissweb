@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Luna AI - Live Cam & Private Chat</title>
+    <title>Live Cam & Private Chat</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -18,12 +18,6 @@
             from { opacity: 0; transform: scale(0.95); } 
             to { opacity: 1; transform: scale(1); } 
         }
-        .benefit-card { 
-            transition: all 0.3s ease; 
-        }
-        .benefit-card:hover { 
-            transform: translateY(-4px); 
-        }
     </style>
 </head>
 <body class="bg-black text-white min-h-screen">
@@ -34,140 +28,145 @@
       <i class="fas fa-exclamation-triangle text-5xl text-rose-500 mb-6"></i>
       <h2 class="text-3xl font-bold mb-4">This is an Adult Website</h2>
       <p class="text-lg text-zinc-300">You must be 18+ to enter.<br>Leave if you are under 18.</p>
-      <div class="mt-8 text-zinc-500 text-sm">Redirecting automatically in <span id="countdown" class="font-mono text-red-400">3</span>s...</div>
+      <div class="mt-8 text-zinc-500 text-sm">Redirecting automatically in <span id="countdown" class="font-mono text-pink-400">3</span>s...</div>
     </div>
   </div>
 
   <!-- HERO -->
   <section class="pt-12 pb-10 bg-black text-center px-5">
-    <!-- Jerkmate Logo + LIVE -->
-    <div class="inline-flex items-center gap-2 bg-zinc-900 px-5 py-2.5 rounded-2xl mb-8 border border-pink-500/30"> 
-      <img src="jerkmatelogo.gif" alt="Jerkmate Logo">
+    <div class="inline-flex items-center gap-2 bg-zinc-900 px-5 py-2.5 rounded-2xl mb-8 border border-pink-500/30">
+      <img src="jerkmatelogo.gif" alt="Jerkmate Logo" class="h-full">
     </div>
 
     <h1 class="hero-font text-5xl font-bold leading-tight mb-4">
-      Meet <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-500">Hot Girls</span>
+      Meet <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-500">me</span>
     </h1>
     <p class="text-xl text-zinc-200 mb-10 px-4">
       Your ultimate fantasy companion — ready for private live chat
     </p>
     
-    <button onclick="showRegisterModal()" 
-            class="w-full bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white text-2xl font-semibold py-7 rounded-2xl transition-all active:scale-95 shadow-xl shadow-pink-500/50">
+    <!-- Butoni kryesor -->
+    <button onclick="showMainModal()" 
+            class="w-full bg-gradient-to-r from-pink-600 to-rose-600 text-white text-2xl font-semibold py-7 rounded-2xl active:scale-95 mb-4 shadow-xl shadow-pink-500/50">
       Get Started Now
     </button>
+
+    <!-- Vetëm butoni Live Cams -->
+    <button onclick="showCamsModal()" 
+            class="w-full bg-zinc-900 border-2 border-pink-500 hover:bg-zinc-800 text-white text-2xl font-semibold py-7 rounded-2xl active:scale-95 flex items-center justify-center gap-3">
+      <i class="fas fa-video"></i>
+      Watch Live Cams
+    </button>
     
-    <p class="mt-6 text-zinc-400 text-sm">Free registration • 18+ only • Safe & discreet</p>
+    <p class="mt-8 text-zinc-400 text-sm">Free registration • 18+ only • Safe & discreet</p>
   </section>
 
   <!-- WHAT YOU GET ON JERKMATE -->
   <section class="py-10 bg-zinc-950 px-5">
-    <h2 class="text-3xl font-semibold text-center mb-8">What You Get on Mysite</h2>
-    
+    <h2 class="text-3xl font-semibold text-center mb-8">What You Get after signing up</h2>
     <div class="space-y-6">
-      <div onclick="this.classList.toggle('ring-2'); this.classList.toggle('ring-pink-500')" class="benefit-card bg-zinc-900 p-6 rounded-3xl cursor-pointer">
+      <div class="bg-zinc-900 p-6 rounded-3xl">
         <i class="fas fa-video text-4xl text-pink-500 mb-4"></i>
         <h3 class="text-xl font-semibold mb-2">Live HD Cam Shows</h3>
-        <p class="text-zinc-400 text-[15px]">Watch and interact in real-time with top models, including exclusive AI companions.</p>
+        <p class="text-zinc-400 text-[15px]">Watch and interact in real-time with top models.</p>
       </div>
-      
-      <div onclick="this.classList.toggle('ring-2'); this.classList.toggle('ring-pink-500')" class="benefit-card bg-zinc-900 p-6 rounded-3xl cursor-pointer">
+      <div class="bg-zinc-900 p-6 rounded-3xl">
         <i class="fas fa-comments text-4xl text-pink-500 mb-4"></i>
         <h3 class="text-xl font-semibold mb-2">Private 1-on-1 Chat</h3>
-        <p class="text-zinc-400 text-[15px]">Intimate cam-to-cam sessions in complete privacy with full control.</p>
+        <p class="text-zinc-400 text-[15px]">Intimate cam-to-cam sessions in complete privacy.</p>
       </div>
-      
-      <div onclick="this.classList.toggle('ring-2'); this.classList.toggle('ring-pink-500')" class="benefit-card bg-zinc-900 p-6 rounded-3xl cursor-pointer">
-        <i class="fas fa-crown text-4xl text-pink-500 mb-4"></i>
-        <h3 class="text-xl font-semibold mb-2">Smart Matching & Filters</h3>
-        <p class="text-zinc-400 text-[15px]">Find exactly what you want using advanced search and personalized recommendations.</p>
-      </div>
-      
-      <div onclick="this.classList.toggle('ring-2'); this.classList.toggle('ring-pink-500')" class="benefit-card bg-zinc-900 p-6 rounded-3xl cursor-pointer">
-        <i class="fas fa-shield-alt text-4xl text-pink-500 mb-4"></i>
-        <h3 class="text-xl font-semibold mb-2">Safe & Anonymous</h3>
-        <p class="text-zinc-400 text-[15px]">Advanced security, discreet billing, and full privacy protection.</p>
-      </div>
-      
-      <div onclick="this.classList.toggle('ring-2'); this.classList.toggle('ring-pink-500')" class="benefit-card bg-zinc-900 p-6 rounded-3xl cursor-pointer">
-        <i class="fas fa-gift text-4xl text-pink-500 mb-4"></i>
-        <h3 class="text-xl font-semibold mb-2">Gold Shows & Tips</h3>
-        <p class="text-zinc-400 text-[15px]">Take control of the show, make special requests, and unlock exclusive content.</p>
-      </div>
-      
-      <div onclick="this.classList.toggle('ring-2'); this.classList.toggle('ring-pink-500')" class="benefit-card bg-zinc-900 p-6 rounded-3xl cursor-pointer">
+      <div class="bg-zinc-900 p-6 rounded-3xl">
         <i class="fas fa-heart text-4xl text-pink-500 mb-4"></i>
         <h3 class="text-xl font-semibold mb-2">Girlfriend Experience</h3>
-        <p class="text-zinc-400 text-[15px]">Real emotional connection, flirty talk, and the fantasy you desire.</p>
+        <p class="text-zinc-400 text-[15px]">Real emotional connection and fantasy.</p>
       </div>
     </div>
   </section>
 
   <!-- GALLERY -->
   <section class="py-10 bg-black px-5">
-    <h2 class="text-3xl font-semibold text-center mb-8">Get to know our models</h2>
+    <h2 class="text-3xl font-semibold text-center mb-8">Get to know some models</h2>
     <div class="grid grid-cols-2 gap-4">
-      <img src="model4.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model 4">
-      <img src="model6.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model 6">
-      <img src="model2.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model 2">
-      <img src="model5.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model 5">
-      <img src="model7.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model 7">
-      <img src="model1.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model 1">
+      <img src="model4.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model">
+      <img src="model6.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model">
+      <img src="model2.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model">
+      <img src="model5.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model">
+      <img src="model7.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model">
+      <img src="model1.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model">
     </div>
   </section>
 
   <!-- FINAL CTA -->
   <section class="py-12 bg-black text-center px-5">
     <h2 class="text-3xl font-bold mb-4">Ready for a private experience?</h2>
-    <p class="text-zinc-300 mb-8 text-[17px]">Join now with my referral and start chatting with me instantly.</p>
-    
-    <button onclick="showRegisterModal()" 
-            class="w-full bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white text-2xl font-semibold py-7 rounded-2xl transition-all active:scale-95">
-      Join Jerkmate Now
+    <p class="text-zinc-300 mb-8 text-[17px]">Join now and start chatting instantly.</p>
+    <button onclick="showMainModal()" 
+            class="w-full bg-gradient-to-r from-pink-600 to-rose-600 text-white text-2xl font-semibold py-7 rounded-2xl active:scale-95">
+      Join Now
     </button>
   </section>
 
-  <!-- REGISTER MODAL (3 steps) -->
-  <div id="registerModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
+  <!-- MODAL MAIN (Jerkmate / Dates) -->
+  <div id="mainModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
     <div class="modal bg-zinc-900 rounded-3xl max-w-md w-full overflow-hidden">
       <div class="p-7">
         <div class="flex justify-between items-center mb-6">
           <h3 class="text-2xl font-semibold">How to Register in 3 Steps</h3>
-          <button onclick="hideRegisterModal()" class="text-3xl text-zinc-400 hover:text-white">×</button>
+          <button onclick="hideMainModal()" class="text-3xl text-zinc-400 hover:text-white">×</button>
         </div>
-        
         <div class="space-y-7">
           <div class="flex gap-4">
-            <div class="w-9 h-9 flex-shrink-0 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-lg">1</div>
-            <div class="pt-1">
-              <h4 class="text-lg font-medium">Register with your email for free</h4>
-              <p class="text-zinc-400 text-sm">Create your account instantly. No payment needed.</p>
-            </div>
+            <div class="w-9 h-9 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-lg">1</div>
+            <div><h4 class="text-lg font-medium">Register with your email for free</h4><p class="text-zinc-400 text-sm">Create your account instantly.</p></div>
           </div>
-          
           <div class="flex gap-4">
-            <div class="w-9 h-9 flex-shrink-0 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-lg">2</div>
-            <div class="pt-1">
-              <h4 class="text-lg font-medium">Search for my username</h4>
-              <p class="text-pink-400 font-medium"></p>
-              <p class="text-zinc-400 text-sm">Find me quickly and open my profile.</p>
-            </div>
+            <div class="w-9 h-9 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-lg">2</div>
+            <div><h4 class="text-lg font-medium">Search for my username</h4><p class="text-pink-400 font-medium"></p></div>
           </div>
-          
           <div class="flex gap-4">
-            <div class="w-9 h-9 flex-shrink-0 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-lg">3</div>
-            <div class="pt-1">
-              <h4 class="text-lg font-medium">Enjoy private chat & live shows</h4>
-              <p class="text-zinc-400 text-sm">Start talking, make requests, and experience the fantasy.</p>
-            </div>
+            <div class="w-9 h-9 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-lg">3</div>
+            <div><h4 class="text-lg font-medium">Enjoy private chat & live shows</h4><p class="text-zinc-400 text-sm">Start your fantasy now.</p></div>
           </div>
         </div>
       </div>
-      
       <div class="border-t border-zinc-700 p-5">
-        <a href="https://t.ajrkmx1.com/360654/8780/0?bo=2779,2778,2777,2776,2775&source=erg&po=6533&aff_sub5=SF_006OG000004lmDN" target="_blank" onclick="hideRegisterModal()" 
-           class="block w-full bg-gradient-to-r from-pink-600 to-rose-600 text-center py-6 rounded-2xl text-xl font-semibold active:scale-95 transition">
+        <a href="https://t.crdtg2.com/360654/7964?aff_sub=soiek&bo=2753,2754,2755,2756&aff_sub5=SF_006OG000004lmDN" 
+           target="_blank" onclick="hideMainModal()" 
+           class="block w-full bg-gradient-to-r from-pink-600 to-rose-600 text-center py-6 rounded-2xl text-xl font-semibold">
           Get Started Now →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL LIVE CAMS -->
+  <div id="camsModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
+    <div class="modal bg-zinc-900 rounded-3xl max-w-md w-full overflow-hidden">
+      <div class="p-7">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-2xl font-semibold">Live Cams - 3 Steps</h3>
+          <button onclick="hideCamsModal()" class="text-3xl text-zinc-400 hover:text-white">×</button>
+        </div>
+        <div class="space-y-7">
+          <div class="flex gap-4">
+            <div class="w-9 h-9 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-lg">1</div>
+            <div><h4 class="text-lg font-medium">Register with your email!</h4><p class="text-zinc-400 text-sm">Create your account instantly.</p></div>
+          </div>
+          <div class="flex gap-4">
+            <div class="w-9 h-9 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-lg">2</div>
+            <div><h4 class="text-lg font-medium">Browse Live Cams</h4><p class="text-pink-400 font-medium">Choose any hot girl</p></div>
+          </div>
+          <div class="flex gap-4">
+            <div class="w-9 h-9 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-lg">3</div>
+            <div><h4 class="text-lg font-medium">Enjoy HD Live Shows</h4><p class="text-zinc-400 text-sm">Watch and interact right now.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-zinc-700 p-5">
+        <a href="https://t.mbjms.com/360654/3785/0?aff_sub=ErgK&bo=2753,2754,2755,2756&target=browserextensions&po=6456&aff_sub5=SF_006OG000004lmDN" 
+           target="_blank" onclick="hideCamsModal()" 
+           class="block w-full bg-gradient-to-r from-pink-600 to-rose-600 text-center py-6 rounded-2xl text-xl font-semibold">
+          Watch Live Cams Now →
         </a>
       </div>
     </div>
@@ -178,6 +177,27 @@
   </footer>
 
   <script>
+    // Main Jerkmate Modal
+    function showMainModal() {
+      document.getElementById('mainModal').classList.remove('hidden');
+      document.getElementById('mainModal').classList.add('flex');
+    }
+    function hideMainModal() {
+      document.getElementById('mainModal').classList.add('hidden');
+      document.getElementById('mainModal').classList.remove('flex');
+    }
+
+    // Live Cams Modal
+    function showCamsModal() {
+      document.getElementById('camsModal').classList.remove('hidden');
+      document.getElementById('camsModal').classList.add('flex');
+    }
+    function hideCamsModal() {
+      document.getElementById('camsModal').classList.add('hidden');
+      document.getElementById('camsModal').classList.remove('flex');
+    }
+
+    // Age Popup
     function showAgePopup() {
       const popup = document.getElementById('agePopup');
       popup.classList.remove('hidden');
@@ -197,22 +217,16 @@
       }, 1000);
     }
 
-    function showRegisterModal() {
-      document.getElementById('registerModal').classList.remove('hidden');
-      document.getElementById('registerModal').classList.add('flex');
-    }
-    
-    function hideRegisterModal() {
-      document.getElementById('registerModal').classList.add('hidden');
-      document.getElementById('registerModal').classList.remove('flex');
-    }
-
     window.onload = function() {
       setTimeout(showAgePopup, 600);
     };
 
-    document.getElementById('registerModal').addEventListener('click', function(e) {
-      if (e.target === this) hideRegisterModal();
+    // Close modals when clicking outside
+    document.getElementById('mainModal').addEventListener('click', function(e) {
+      if (e.target === this) hideMainModal();
+    });
+    document.getElementById('camsModal').addEventListener('click', function(e) {
+      if (e.target === this) hideCamsModal();
     });
   </script>
 </body>
