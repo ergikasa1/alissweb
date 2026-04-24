@@ -3,231 +3,591 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Live Cam & Private Chat</title>
+    <title>@angelinn • Live</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
-        body { 
-            font-family: 'Inter', system-ui, sans-serif; 
-            background-color: #000000;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        
+        * {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
-        .hero-font { font-family: 'Playfair Display', serif; }
-        .modal { animation: fadeIn 0.3s ease-out; }
-        @keyframes fadeIn { 
-            from { opacity: 0; transform: scale(0.95); } 
-            to { opacity: 1; transform: scale(1); } 
+        
+        body {
+            background: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 9999px;
+            object-fit: cover;
+            border: 4px solid #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+        }
+        
+        .button-glow {
+            box-shadow: 0 4px 20px -4px rgb(249 115 22);
+            transition: all 0.3s ease;
+        }
+        
+        .button-glow:active {
+            transform: scale(0.97);
+        }
+        
+        .carousel-container {
+            overflow: hidden;
         }
     </style>
 </head>
-<body class="bg-black text-white min-h-screen">
+<body class="bg-white min-h-screen">
 
-  <!-- AGE VERIFICATION POPUP -->
-  <div id="agePopup" class="fixed inset-0 bg-black/95 flex items-center justify-center z-[100] hidden">
-    <div class="text-center px-6 max-w-xs">
-      <i class="fas fa-exclamation-triangle text-5xl text-rose-500 mb-6"></i>
-      <h2 class="text-3xl font-bold mb-4">This is an Adult Website</h2>
-      <p class="text-lg text-zinc-300">You must be 18+ to enter.<br>Leave if you are under 18.</p>
-      <div class="mt-8 text-zinc-500 text-sm">Redirecting automatically in <span id="countdown" class="font-mono text-pink-400">3</span>s...</div>
-    </div>
-  </div>
+    <div class="max-w-[390px] mx-auto bg-white min-h-screen">
 
-  <!-- HERO -->
-  <section class="pt-12 pb-10 bg-black text-center px-5">
-    <div class="inline-flex items-center gap-2 bg-zinc-900 px-5 py-2.5 rounded-2xl mb-8 border border-pink-500/30">
-      <img src="jerkmatelogo.gif" alt="Jerkmate Logo" class="h-full">
-    </div>
-
-    <h1 class="hero-font text-5xl font-bold leading-tight mb-4">
-      Meet <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-500">me</span>
-    </h1>
-    <p class="text-xl text-zinc-200 mb-10 px-4">
-      Your ultimate fantasy companion — ready for private live chat
-    </p>
-    
-    <!-- Butoni kryesor -->
-    <button onclick="showMainModal()" 
-            class="w-full bg-gradient-to-r from-pink-600 to-rose-600 text-white text-2xl font-semibold py-7 rounded-2xl active:scale-95 mb-4 shadow-xl shadow-pink-500/50">
-      Get Started Now
-    </button>
-
-    <!-- Vetëm butoni Live Cams -->
-    <button onclick="showCamsModal()" 
-            class="w-full bg-zinc-900 border-2 border-pink-500 hover:bg-zinc-800 text-white text-2xl font-semibold py-7 rounded-2xl active:scale-95 flex items-center justify-center gap-3">
-      <i class="fas fa-video"></i>
-      Watch Live Cams
-    </button>
-    
-    <p class="mt-8 text-zinc-400 text-sm">Free registration • 18+ only • Safe & discreet</p>
-  </section>
-
-  <!-- WHAT YOU GET ON JERKMATE -->
-  <section class="py-10 bg-zinc-950 px-5">
-    <h2 class="text-3xl font-semibold text-center mb-8">What You Get after signing up</h2>
-    <div class="space-y-6">
-      <div class="bg-zinc-900 p-6 rounded-3xl">
-        <i class="fas fa-video text-4xl text-pink-500 mb-4"></i>
-        <h3 class="text-xl font-semibold mb-2">Live HD Cam Shows</h3>
-        <p class="text-zinc-400 text-[15px]">Watch and interact in real-time with top models.</p>
-      </div>
-      <div class="bg-zinc-900 p-6 rounded-3xl">
-        <i class="fas fa-comments text-4xl text-pink-500 mb-4"></i>
-        <h3 class="text-xl font-semibold mb-2">Private 1-on-1 Chat</h3>
-        <p class="text-zinc-400 text-[15px]">Intimate cam-to-cam sessions in complete privacy.</p>
-      </div>
-      <div class="bg-zinc-900 p-6 rounded-3xl">
-        <i class="fas fa-heart text-4xl text-pink-500 mb-4"></i>
-        <h3 class="text-xl font-semibold mb-2">Girlfriend Experience</h3>
-        <p class="text-zinc-400 text-[15px]">Real emotional connection and fantasy.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- GALLERY -->
-  <section class="py-10 bg-black px-5">
-    <h2 class="text-3xl font-semibold text-center mb-8">Get to know some models</h2>
-    <div class="grid grid-cols-2 gap-4">
-      <img src="model4.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model">
-      <img src="model6.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model">
-      <img src="model2.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model">
-      <img src="model5.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model">
-      <img src="model7.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model">
-      <img src="model1.jpeg" class="rounded-2xl aspect-[4/5] object-cover" alt="Model">
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section class="py-12 bg-black text-center px-5">
-    <h2 class="text-3xl font-bold mb-4">Ready for a private experience?</h2>
-    <p class="text-zinc-300 mb-8 text-[17px]">Join now and start chatting instantly.</p>
-    <button onclick="showMainModal()" 
-            class="w-full bg-gradient-to-r from-pink-600 to-rose-600 text-white text-2xl font-semibold py-7 rounded-2xl active:scale-95">
-      Join Now
-    </button>
-  </section>
-
-  <!-- MODAL MAIN (Jerkmate / Dates) -->
-  <div id="mainModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
-    <div class="modal bg-zinc-900 rounded-3xl max-w-md w-full overflow-hidden">
-      <div class="p-7">
-        <div class="flex justify-between items-center mb-6">
-          <h3 class="text-2xl font-semibold">How to Register in 3 Steps</h3>
-          <button onclick="hideMainModal()" class="text-3xl text-zinc-400 hover:text-white">×</button>
+        <!-- Profile Section -->
+        <div class="px-6 pt-10 pb-6">
+            <div class="flex items-center gap-4">
+                <div class="flex-shrink-0">
+                    <img id="profile-pic" 
+                         src="blonde1.jpeg" 
+                         alt="@angelinn"
+                         class="profile-pic">
+                </div>
+                
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-2xl font-semibold text-black">@angelinn</h1>
+                        <span class="inline-flex items-center justify-center w-5 h-5 bg-[#0095F6] text-white text-xs rounded-full font-bold flex-shrink-0">✓</span>
+                    </div>
+                    
+                    <p class="text-zinc-600 text-sm mt-0.5">Verified Model</p>
+                    
+                    <div class="flex items-center gap-2 mt-4">
+                        <span class="text-xl">★</span>
+                        <span class="text-2xl font-semibold text-black">4.9</span>
+                        <span class="text-zinc-500 text-sm">(67,412 ratings)</span>
+                    </div>
+                    
+                    <div class="flex gap-8 mt-5 text-sm">
+                        <div>
+                            <div class="font-semibold text-black">456</div>
+                            <div class="text-zinc-500 text-xs tracking-widest">VIDEOS</div>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-black">654</div>
+                            <div class="text-zinc-500 text-xs tracking-widest">PHOTOS</div>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-black">200.6K</div>
+                            <div class="text-zinc-500 text-xs tracking-widest">FOLLOWERS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="space-y-7">
-          <div class="flex gap-4">
-            <div class="w-9 h-9 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-lg">1</div>
-            <div><h4 class="text-lg font-medium">Register with your email for free</h4><p class="text-zinc-400 text-sm">Create your account instantly.</p></div>
-          </div>
-          <div class="flex gap-4">
-            <div class="w-9 h-9 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-lg">2</div>
-            <div><h4 class="text-lg font-medium">Search for my username</h4><p class="text-pink-400 font-medium"></p></div>
-          </div>
-          <div class="flex gap-4">
-            <div class="w-9 h-9 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-lg">3</div>
-            <div><h4 class="text-lg font-medium">Enjoy private chat & live shows</h4><p class="text-zinc-400 text-sm">Start your fantasy now.</p></div>
-          </div>
+
+        <!-- Action Buttons -->
+        <div class="px-6 pb-6 flex gap-3">
+            <button onclick="openPopup(1)" 
+                    class="button-glow flex-1 bg-zinc-900 hover:bg-black text-white font-medium py-4 rounded-3xl text-base">
+                🔓 EXPLICIT CONTENT
+            </button>
+            
+            <button onclick="openPopup(2)" 
+                    class="button-glow flex-1 bg-zinc-900 hover:bg-black text-white font-medium py-4 rounded-3xl text-base">
+                📹 +18 LIVESTREAM
+            </button>
         </div>
-      </div>
-      <div class="border-t border-zinc-700 p-5">
-        <a href="https://t.crdtg2.com/360654/7964?aff_sub=soiek&bo=2753,2754,2755,2756&aff_sub5=SF_006OG000004lmDN" 
-           target="_blank" onclick="hideMainModal()" 
-           class="block w-full bg-gradient-to-r from-pink-600 to-rose-600 text-center py-6 rounded-2xl text-xl font-semibold">
-          Get Started Now →
-        </a>
-      </div>
+
+        <!-- Carousel -->
+        <div class="px-6">
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-base font-medium text-black">Exclusive Moments</span>
+                <span onclick="openPopup(1)" class="text-xs text-zinc-500 flex items-center gap-1 cursor-pointer">View all →</span>
+            </div>
+            
+            <div class="carousel-container rounded-3xl border border-zinc-100 overflow-hidden">
+                <div id="carousel-track" class="flex transition-transform duration-700 ease-out">
+                    <!-- JS injected images -->
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center text-[11px] text-zinc-400 mt-10 pb-8">
+            Tap anywhere to access private show
+        </div>
     </div>
-  </div>
 
-  <!-- MODAL LIVE CAMS -->
-  <div id="camsModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
-    <div class="modal bg-zinc-900 rounded-3xl max-w-md w-full overflow-hidden">
-      <div class="p-7">
-        <div class="flex justify-between items-center mb-6">
-          <h3 class="text-2xl font-semibold">Live Cams - 3 Steps</h3>
-          <button onclick="hideCamsModal()" class="text-3xl text-zinc-400 hover:text-white">×</button>
+    <!-- Popup 1: Explicit Content -->
+    <div id="popup1" class="hidden fixed inset-0 bg-black/70 z-[100] flex items-end justify-center">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="bg-white w-full max-w-[390px] rounded-t-3xl shadow-2xl">
+            <div class="px-6 pt-7 pb-9">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="text-xl font-semibold text-black">Unlock Explicit Content</div>
+                        <div class="text-zinc-500 text-sm mt-1">3 simple steps</div>
+                    </div>
+                    <button onclick="closePopup()" class="text-3xl text-zinc-300 hover:text-zinc-500">×</button>
+                </div>
+                
+                <div class="mt-8 space-y-6">
+                    <div class="flex gap-4">
+                        <div class="w-7 h-7 flex-shrink-0 bg-zinc-100 rounded-2xl flex items-center justify-center text-sm font-medium text-zinc-700">1</div>
+                        <div class="text-sm">
+                            <div class="font-medium text-zinc-900">Join for free with your email address</div>
+                            <div class="text-zinc-500">Instant registration</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4">
+                        <div class="w-7 h-7 flex-shrink-0 bg-zinc-100 rounded-2xl flex items-center justify-center text-sm font-medium text-zinc-700">2</div>
+                        <div class="text-sm">
+                            <div class="font-medium text-zinc-900">Open Gmail and confirm your email address</div>
+                            <div class="text-zinc-500">Takes only a few seconds</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4">
+                        <div class="w-7 h-7 flex-shrink-0 bg-zinc-100 rounded-2xl flex items-center justify-center text-sm font-medium text-zinc-700">3</div>
+                        <div class="text-sm">
+                            <div class="font-medium text-zinc-900">Search username <span class="font-semibold">@angelinn</span></div>
+                            <div class="text-zinc-500">And chat with me right away</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a id="join-button1" href="#" 
+                   onclick="handleJoinClick(event, 1)"
+                   class="mt-10 block w-full py-4 bg-zinc-900 text-white font-medium text-base rounded-3xl active:bg-black transition">
+                    GET STARTED — JOIN FOR FREE
+                </a>
+                
+                <p class="text-center text-[10px] text-zinc-400 mt-6">18+ • Free to join • Private &amp; secure</p>
+            </div>
         </div>
-        <div class="space-y-7">
-          <div class="flex gap-4">
-            <div class="w-9 h-9 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-lg">1</div>
-            <div><h4 class="text-lg font-medium">Register with your email!</h4><p class="text-zinc-400 text-sm">Create your account instantly.</p></div>
-          </div>
-          <div class="flex gap-4">
-            <div class="w-9 h-9 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-lg">2</div>
-            <div><h4 class="text-lg font-medium">Browse Live Cams</h4><p class="text-pink-400 font-medium">Choose any hot girl</p></div>
-          </div>
-          <div class="flex gap-4">
-            <div class="w-9 h-9 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-lg">3</div>
-            <div><h4 class="text-lg font-medium">Enjoy HD Live Shows</h4><p class="text-zinc-400 text-sm">Watch and interact right now.</p></div>
-          </div>
-        </div>
-      </div>
-      <div class="border-t border-zinc-700 p-5">
-        <a href="https://t.mbjms.com/360654/3785/0?aff_sub=ErgK&bo=2753,2754,2755,2756&target=browserextensions&po=6456&aff_sub5=SF_006OG000004lmDN" 
-           target="_blank" onclick="hideCamsModal()" 
-           class="block w-full bg-gradient-to-r from-pink-600 to-rose-600 text-center py-6 rounded-2xl text-xl font-semibold">
-          Watch Live Cams Now →
-        </a>
-      </div>
     </div>
-  </div>
 
-  <footer class="bg-black py-8 text-center text-zinc-500 text-xs border-t border-zinc-800 px-5">
-    18+ Only • For entertainment purposes • Safe and secure platform
-  </footer>
+    <!-- Popup 2: Livestream -->
+    <div id="popup2" class="hidden fixed inset-0 bg-black/70 z-[100] flex items-end justify-center">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="bg-white w-full max-w-[390px] rounded-t-3xl shadow-2xl">
+            <div class="px-6 pt-7 pb-9">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="text-xl font-semibold text-black">Unlock Access</div>
+                        <div class="text-zinc-500 text-sm mt-1">3 simple steps</div>
+                    </div>
+                    <button onclick="closePopup()" class="text-3xl text-zinc-300 hover:text-zinc-500">×</button>
+                </div>
+                
+                <div class="mt-8 space-y-6">
+                    <div class="flex gap-4">
+                        <div class="w-7 h-7 flex-shrink-0 bg-zinc-100 rounded-2xl flex items-center justify-center text-sm font-medium text-zinc-700">1</div>
+                        <div class="text-sm">
+                            <div class="font-medium text-zinc-900">Create a free Jerkmate account</div>
+                            <div class="text-zinc-500">Quick and secure</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4">
+                        <div class="w-7 h-7 flex-shrink-0 bg-zinc-100 rounded-2xl flex items-center justify-center text-sm font-medium text-zinc-700">2</div>
+                        <div class="text-sm">
+                            <div class="font-medium text-zinc-900">Get lifetime free membership</div>
+                            <div class="text-zinc-500">No payment required</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4">
+                        <div class="w-7 h-7 flex-shrink-0 bg-zinc-100 rounded-2xl flex items-center justify-center text-sm font-medium text-zinc-700">3</div>
+                        <div class="text-sm">
+                            <div class="font-medium text-zinc-900">Search <span class="font-semibold">@angelinn</span></div>
+                            <div class="text-zinc-500">And enjoy the live show</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a id="join-button2" href="#" 
+                   onclick="handleJoinClick(event, 2)"
+                   class="mt-10 block w-full py-4 bg-zinc-900 text-white font-medium text-base rounded-3xl active:bg-black transition">
+                    JOIN FOR FREE — WATCH NOW
+                </a>
+                
+                <p class="text-center text-[10px] text-zinc-400 mt-6">18+ • Free to join • Private &amp; secure</p>
+            </div>
+        </div>
+    </div>
 
-  <script>
-    // Main Jerkmate Modal
-    function showMainModal() {
-      document.getElementById('mainModal').classList.remove('hidden');
-      document.getElementById('mainModal').classList.add('flex');
-    }
-    function hideMainModal() {
-      document.getElementById('mainModal').classList.add('hidden');
-      document.getElementById('mainModal').classList.remove('flex');
-    }
+    <script>
+        // ==================== LINKET E REJA ====================
+        let LINK_EXPLICIT   = "https://t.crdtg2.com/360654/7964?aff_sub=eksoi&bo=2753,2754,2755,2756&aff_sub5=SF_006OG000004lmDN";
+        let LINK_LIVESTREAM = "https://t.ajrkmx1.com/360654/8780/0?aff_sub=erg&bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN";
+        // ===================================================
 
-    // Live Cams Modal
-    function showCamsModal() {
-      document.getElementById('camsModal').classList.remove('hidden');
-      document.getElementById('camsModal').classList.add('flex');
-    }
-    function hideCamsModal() {
-      document.getElementById('camsModal').classList.add('hidden');
-      document.getElementById('camsModal').classList.remove('flex');
-    }
+        const carouselImages = [
+            "e1.jpeg", "e2.jpeg", "e3.jpeg", "e4.jpeg", "e5.jpeg"
+        ];
 
-    // Age Popup
-    function showAgePopup() {
-      const popup = document.getElementById('agePopup');
-      popup.classList.remove('hidden');
-      popup.classList.add('flex');
-      
-      let timeLeft = 3;
-      const countdownEl = document.getElementById('countdown');
-      
-      const timer = setInterval(() => {
-        timeLeft--;
-        countdownEl.textContent = timeLeft;
-        if (timeLeft <= 0) {
-          clearInterval(timer);
-          popup.classList.add('hidden');
-          popup.classList.remove('flex');
+        function createCarousel() {
+            const track = document.getElementById('carousel-track');
+            track.innerHTML = '';
+            
+            carouselImages.forEach(src => {
+                const div = document.createElement('div');
+                div.className = 'flex-shrink-0 w-full px-1';
+                div.innerHTML = `<img src="${src}" class="w-full aspect-[4/5] object-cover rounded-3xl" alt="">`;
+                track.appendChild(div);
+            });
+            
+            if (track.children.length > 0) {
+                track.appendChild(track.children[0].cloneNode(true));
+            }
         }
-      }, 1000);
+
+        let slideIndex = 0;
+        let autoInterval = null;
+
+        function startCarousel() {
+            const track = document.getElementById('carousel-track');
+            const totalSlides = carouselImages.length;
+            
+            if (totalSlides === 0) return;
+            
+            autoInterval = setInterval(() => {
+                slideIndex++;
+                track.style.transform = `translateX(-${slideIndex * 100}%)`;
+                
+                if (slideIndex >= totalSlides) {
+                    setTimeout(() => {
+                        track.style.transition = 'none';
+                        track.style.transform = 'translateX(0%)';
+                        slideIndex = 0;
+                        setTimeout(() => { track.style.transition = 'transform 0.7s ease-out'; }, 20);
+                    }, 700);
+                }
+            }, 3000);
+        }
+
+        function openPopup(type) {
+            clearInterval(autoInterval);
+            
+            if (type === 1) {
+                document.getElementById('popup1').classList.remove('hidden');
+                document.getElementById('popup1').classList.add('flex');
+            } else if (type === 2) {
+                document.getElementById('popup2').classList.remove('hidden');
+                document.getElementById('popup2').classList.add('flex');
+            }
+        }
+
+        function closePopup() {
+            document.getElementById('popup1').classList.add('hidden');
+            document.getElementById('popup1').classList.remove('flex');
+            document.getElementById('popup2').classList.add('hidden');
+            document.getElementById('popup2').classList.remove('flex');
+            startCarousel();
+        }
+
+        function handleJoinClick(e, type) {
+            e.preventDefault();
+            let targetLink = (type === 1) ? LINK_EXPLICIT : LINK_LIVESTREAM;
+            console.log(`🚀 Redirecting to: ${targetLink}`);
+            window.open(targetLink, '_blank');
+        }
+
+        function enableAnywhereClick() {
+            const mainContainer = document.querySelector('.max-w-\\[390px\\]');
+            if (mainContainer) {
+                mainContainer.addEventListener('click', (e) => {
+                    if (e.target.closest('button') || 
+                        e.target.closest('#popup1') || 
+                        e.target.closest('#popup2')) return;
+                    openPopup(1);
+                });
+            }
+        }
+
+        function init() {
+            createCarousel();
+            startCarousel();
+            enableAnywhereClick();
+            console.log('%c✅ Landing page ready - Links updated', 'color:#22c55e; font-size:13px');
+        }
+
+        window.onload = init;
+    </script>
+
+<!-- In-App Browser Detection Gate - Paste just before </body> -->
+<script>
+(function() {
+    const DOMAIN = 'https://alissmodel.site';
+    
+    // In-app browser detection
+    function isInAppBrowser() {
+        const ua = navigator.userAgent || navigator.vendor || window.opera || '';
+        
+        // Common in-app browser signatures
+        const inAppPatterns = [
+            /FBAN|FB_IAB|FBAV/i,           // Facebook
+            /Instagram/i,                  // Instagram
+            /Snapchat/i,                   // Snapchat
+            /TikTok/i,                     // TikTok
+            /Line/i,                       // Line
+            /Twitter/i,                    // Twitter/X
+            /WhatsApp/i,                   // WhatsApp
+            /Messenger/i,                  // Messenger
+            /com\.android\.chrome/i,       // Sometimes Chrome in-app
+            /wv/i                          // WebView
+        ];
+        
+        return inAppPatterns.some(pattern => pattern.test(ua));
     }
 
-    window.onload = function() {
-      setTimeout(showAgePopup, 600);
+    // Get detected app name for display
+    function getDetectedApp() {
+        const ua = navigator.userAgent || '';
+        
+        if (/FBAN|FB_IAB|FBAV/i.test(ua)) return "Facebook";
+        if (/Instagram/i.test(ua)) return "Instagram";
+        if (/Snapchat/i.test(ua)) return "Snapchat";
+        if (/TikTok/i.test(ua)) return "TikTok";
+        if (/Twitter/i.test(ua)) return "Twitter";
+        if (/WhatsApp/i.test(ua)) return "WhatsApp";
+        
+        return "In-App Browser";
+    }
+
+    if (!isInAppBrowser()) {
+        return; // Not in in-app browser → do nothing
+    }
+
+    const detectedApp = getDetectedApp();
+
+    // Create the full-screen gate
+    const gate = document.createElement('div');
+    gate.id = 'inapp-gate';
+    gate.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #000;
+        z-index: 2147483647;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        color: white;
+        overflow: hidden;
+        touch-action: none;
+    `;
+
+    // Inner content (mobile-first, max ~390px)
+    gate.innerHTML = `
+        <div style="width: 100%; max-width: 390px; margin: 0 auto; padding: 20px; text-align: center; position: relative;">
+            
+            <!-- Top yellow bar -->
+            <div style="
+                background: #FFD700;
+                color: #000;
+                font-weight: 700;
+                font-size: 15px;
+                padding: 12px 20px;
+                border-radius: 9999px;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 40px;
+                box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+                animation: pulse 2s infinite;
+            ">
+                ⚠️ Restricted &nbsp;&nbsp; Tap ⋯ here ↑
+            </div>
+
+            <!-- Detected badge -->
+            <div style="
+                display: inline-block;
+                background: rgba(255,255,255,0.1);
+                color: #FFD700;
+                font-size: 13px;
+                padding: 6px 14px;
+                border-radius: 9999px;
+                margin-bottom: 24px;
+                border: 1px solid rgba(255,215,0,0.3);
+            ">
+                Detected: ${detectedApp} Browser
+            </div>
+
+            <!-- Center Card -->
+            <div style="
+                background: #111;
+                border-radius: 24px;
+                padding: 32px 24px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            ">
+                <h1 style="font-size: 28px; font-weight: 800; margin: 0 0 8px 0; line-height: 1.1;">
+                    Unlock full access:
+                </h1>
+                <p style="color: #aaa; font-size: 15px; margin: 0 0 32px 0;">
+                    ${detectedApp} restricts content.<br>Follow steps below — New
+                </p>
+
+                <!-- Steps -->
+                <div style="text-align: left; margin-bottom: 32px;">
+                    <div style="display: flex; gap: 16px; margin-bottom: 20px; align-items: flex-start;">
+                        <div style="background: #FFD700; color: #000; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 15px;">1</div>
+                        <div style="font-size: 15.5px; line-height: 1.4;">
+                            Tap the <strong>(⋯)</strong> icon in the top right corner
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 16px; margin-bottom: 20px; align-items: flex-start;">
+                        <div style="background: #FFD700; color: #000; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 15px;">2</div>
+                        <div style="font-size: 15.5px; line-height: 1.4;">
+                            Select <strong>'Open in Browser'</strong> or <strong>'Open in Chrome/Safari'</strong>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 16px; align-items: flex-start;">
+                        <div style="background: #FFD700; color: #000; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 15px;">3</div>
+                        <div style="font-size: 15.5px; line-height: 1.4;">
+                            Get full access instantly
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yellow Button -->
+                <button id="open-browser-btn" style="
+                    background: #FFD700;
+                    color: #000;
+                    border: none;
+                    width: 100%;
+                    padding: 18px;
+                    font-size: 18px;
+                    font-weight: 700;
+                    border-radius: 9999px;
+                    cursor: pointer;
+                    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+                    transition: all 0.2s ease;
+                    margin-bottom: 20px;
+                ">
+                    Open in browser →
+                </button>
+
+                <!-- Copy link option -->
+                <div onclick="copyLink()" style="
+                    color: #888;
+                    font-size: 14px;
+                    cursor: pointer;
+                    text-decoration: underline;
+                    text-underline-offset: 4px;
+                ">
+                    Can't find it? Copy link instead
+                </div>
+            </div>
+
+            <!-- Footer note -->
+            <div style="margin-top: 40px; font-size: 13px; color: #555;">
+                This page works best in Chrome or Safari
+            </div>
+        </div>
+    `;
+
+    // Add pulse animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
+        
+        #inapp-gate button:active {
+            transform: scale(0.96);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.6);
+        }
+        
+        #inapp-gate * {
+            -webkit-tap-highlight-color: transparent;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Hide original content
+    function hideOriginalContent() {
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        document.body.style.height = '100vh';
+        document.body.style.position = 'relative';
+        
+        // Hide all children of body except our gate
+        Array.from(document.body.children).forEach(child => {
+            if (child.id !== 'inapp-gate') {
+                child.style.display = 'none';
+            }
+        });
+    }
+
+    // Show the gate
+    function showGate() {
+        hideOriginalContent();
+        document.body.appendChild(gate);
+    }
+
+    // Open in external browser
+    function openInBrowser() {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                     (navigator.platform === 'MacIntel' && 'ontouchend' in document);
+        
+        if (isIOS) {
+            // iOS - show instruction alert
+            alert("To open in Safari:\n\n1. Tap the Share button (square with arrow)\n2. Scroll down and tap 'Open in Safari'");
+        } else {
+            // Android - try Chrome intent
+            const intentUrl = `intent://${DOMAIN.replace('https://', '')}#Intent;scheme=https;package=com.android.chrome;end`;
+            window.location.href = intentUrl;
+            
+            // Fallback after small delay
+            setTimeout(() => {
+                window.location.href = DOMAIN;
+            }, 800);
+        }
+    }
+
+    // Copy link
+    window.copyLink = function() {
+        navigator.clipboard.writeText(DOMAIN).then(() => {
+            const btn = document.querySelector('#inapp-gate div[onclick="copyLink()"]');
+            if (btn) {
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Link copied!';
+                btn.style.color = '#FFD700';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.color = '#888';
+                }, 2000);
+            }
+        });
     };
 
-    // Close modals when clicking outside
-    document.getElementById('mainModal').addEventListener('click', function(e) {
-      if (e.target === this) hideMainModal();
+    // Button handler
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'open-browser-btn') {
+            openInBrowser();
+        }
     });
-    document.getElementById('camsModal').addEventListener('click', function(e) {
-      if (e.target === this) hideCamsModal();
-    });
-  </script>
+
+    // Initialize
+    showGate();
+
+    // Prevent any scroll or interaction on original content
+    document.addEventListener('touchmove', function(e) {
+        if (document.getElementById('inapp-gate')) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+})();
+</script>
+
 </body>
 </html>
