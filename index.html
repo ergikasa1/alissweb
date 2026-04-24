@@ -1,696 +1,292 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sq">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>@angelinn • Live</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Hap në Browser</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-        
         * {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-        }
-        
-        body {
-            background: #ffffff;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        
-        .profile-pic {
-            width: 80px;
-            height: 80px;
-            border-radius: 9999px;
-            object-fit: cover;
-            border: 4px solid #ffffff;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-        
-        .button-glow {
-            box-shadow: 0 4px 20px -4px rgb(249 115 22);
-            transition: all 0.3s ease;
+
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background: #1a1a1a;
+            border-radius: 24px;
+            padding: 40px 24px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            border: 1px solid #2a2a2a;
         }
-        
-        .button-glow:active {
-            transform: scale(0.97);
+
+        .restricted-badge {
+            display: inline-block;
+            background: #ff3b30;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
         }
-        
-        .carousel-container {
-            overflow: hidden;
+
+        h1 {
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .detected-box {
+            background: #2a2a2a;
+            border-radius: 16px;
+            padding: 16px;
+            margin: 24px 0;
+            border-left: 4px solid #ff3b30;
+        }
+
+        .detected-box p {
+            color: #ff9f8a;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        h2 {
+            color: white;
+            font-size: 22px;
+            font-weight: 600;
+            margin: 24px 0 16px 0;
+        }
+
+        .steps {
+            text-align: left;
+            background: #0f0f0f;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+            color: #ddd;
+            font-size: 16px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: #2a2a2a;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        .step-icon {
+            font-size: 22px;
+        }
+
+        .menu-icon-demo {
+            background: #2a2a2a;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-family: monospace;
+            letter-spacing: 1px;
+        }
+
+        .open-btn {
+            background: #2c6e2c;
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 44px;
+            font-size: 17px;
+            font-weight: 600;
+            width: 100%;
+            margin: 16px 0;
+            cursor: pointer;
+        }
+
+        .copy-link {
+            color: #666;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 16px;
+        }
+
+        .footer-note {
+            font-size: 12px;
+            color: #555;
+            margin-top: 24px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2ecc71;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
         }
     </style>
 </head>
-<body class="bg-white min-h-screen">
+<body>
 
-    <div class="max-w-[390px] mx-auto bg-white min-h-screen">
+<div class="container" id="mainContainer">
+    <div class="restricted-badge">⚠️ Restricted</div>
+    <h1>Tap <span class="menu-icon-demo">•••</span> here</h1>
+    
+    <div class="detected-box">
+        <p>📱 Detected: <span id="detectedPlatform">Snapchat Browser</span></p>
+    </div>
 
-        <!-- Profile Section -->
-        <div class="px-6 pt-10 pb-6">
-            <div class="flex items-center gap-4">
-                <div class="flex-shrink-0">
-                    <img id="profile-pic" 
-                         src="blonde1.jpeg" 
-                         alt="@angelinn"
-                         class="profile-pic">
-                </div>
-                
-                <div class="flex-1 min-w-0">
-                    <div class="flex items-center gap-2">
-                        <h1 class="text-2xl font-semibold text-black">@angelinn</h1>
-                        <span class="inline-flex items-center justify-center w-5 h-5 bg-[#0095F6] text-white text-xs rounded-full font-bold flex-shrink-0">✓</span>
-                    </div>
-                    
-                    <p class="text-zinc-600 text-sm mt-0.5">Verified Model</p>
-                    
-                    <div class="flex items-center gap-2 mt-4">
-                        <span class="text-xl">★</span>
-                        <span class="text-2xl font-semibold text-black">4.9</span>
-                        <span class="text-zinc-500 text-sm">(67,412 ratings)</span>
-                    </div>
-                    
-                    <div class="flex gap-8 mt-5 text-sm">
-                        <div>
-                            <div class="font-semibold text-black">456</div>
-                            <div class="text-zinc-500 text-xs tracking-widest">VIDEOS</div>
-                        </div>
-                        <div>
-                            <div class="font-semibold text-black">654</div>
-                            <div class="text-zinc-500 text-xs tracking-widest">PHOTOS</div>
-                        </div>
-                        <div>
-                            <div class="font-semibold text-black">200.6K</div>
-                            <div class="text-zinc-500 text-xs tracking-widest">FOLLOWERS</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <h2>Unlock full access:</h2>
+    <p style="color:#aaa; margin-bottom:16px;">Snapchat restricts content — follow steps below:</p>
+    
+    <div class="steps">
+        <div class="step">
+            <div class="step-number">1</div>
+            <div>Tap the <strong class="menu-icon-demo">•••</strong> icon in the top right corner</div>
         </div>
-
-        <!-- Action Buttons -->
-        <div class="px-6 pb-6 flex gap-3">
-            <button onclick="openPopup(1)" 
-                    class="button-glow flex-1 bg-zinc-900 hover:bg-black text-white font-medium py-4 rounded-3xl text-base">
-                🔓 EXPLICIT CONTENT
-            </button>
-            
-            <button onclick="openPopup(2)" 
-                    class="button-glow flex-1 bg-zinc-900 hover:bg-black text-white font-medium py-4 rounded-3xl text-base">
-                📹 +18 LIVESTREAM
-            </button>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div>Select <strong>'Open in Browser'</strong> from the menu</div>
         </div>
-
-        <!-- Carousel -->
-        <div class="px-6">
-            <div class="flex justify-between items-center mb-3">
-                <span class="text-base font-medium text-black">Exclusive Moments</span>
-                <span onclick="openPopup(1)" class="text-xs text-zinc-500 flex items-center gap-1 cursor-pointer">View all →</span>
-            </div>
-            
-            <div class="carousel-container rounded-3xl border border-zinc-100 overflow-hidden">
-                <div id="carousel-track" class="flex transition-transform duration-700 ease-out">
-                    <!-- JS injected images -->
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center text-[11px] text-zinc-400 mt-10 pb-8">
-            Tap anywhere to access private show
+        <div class="step">
+            <div class="step-number">3</div>
+            <div>Get the full experience instantly</div>
         </div>
     </div>
 
-    <!-- Popup 1: Explicit Content -->
-    <div id="popup1" class="hidden fixed inset-0 bg-black/70 z-[100] flex items-end justify-center">
-        <div onclick="event.stopImmediatePropagation()" 
-             class="bg-white w-full max-w-[390px] rounded-t-3xl shadow-2xl">
-            <div class="px-6 pt-7 pb-9">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="text-xl font-semibold text-black">Unlock Explicit Content</div>
-                        <div class="text-zinc-500 text-sm mt-1">3 simple steps</div>
-                    </div>
-                    <button onclick="closePopup()" class="text-3xl text-zinc-300 hover:text-zinc-500">×</button>
-                </div>
-                
-                <div class="mt-8 space-y-6">
-                    <div class="flex gap-4">
-                        <div class="w-7 h-7 flex-shrink-0 bg-zinc-100 rounded-2xl flex items-center justify-center text-sm font-medium text-zinc-700">1</div>
-                        <div class="text-sm">
-                            <div class="font-medium text-zinc-900">Join for free with your email address</div>
-                            <div class="text-zinc-500">Instant registration</div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex gap-4">
-                        <div class="w-7 h-7 flex-shrink-0 bg-zinc-100 rounded-2xl flex items-center justify-center text-sm font-medium text-zinc-700">2</div>
-                        <div class="text-sm">
-                            <div class="font-medium text-zinc-900">Open Gmail and confirm your email address</div>
-                            <div class="text-zinc-500">Takes only a few seconds</div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex gap-4">
-                        <div class="w-7 h-7 flex-shrink-0 bg-zinc-100 rounded-2xl flex items-center justify-center text-sm font-medium text-zinc-700">3</div>
-                        <div class="text-sm">
-                            <div class="font-medium text-zinc-900">Search username <span class="font-semibold">@angelinn</span></div>
-                            <div class="text-zinc-500">And chat with me right away</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <a id="join-button1" href="#" 
-                   onclick="handleJoinClick(event, 1)"
-                   class="mt-10 block w-full py-4 bg-zinc-900 text-white font-medium text-base rounded-3xl active:bg-black transition">
-                    GET STARTED — JOIN FOR FREE
-                </a>
-                
-                <p class="text-center text-[10px] text-zinc-400 mt-6">18+ • Free to join • Private &amp; secure</p>
-            </div>
-        </div>
-    </div>
+    <button class="open-btn" id="openBrowserBtn">🌐 Open in browser</button>
+    
+    <a href="#" id="copyLinkBtn" class="copy-link">📋 Can't find it? Copy link instead</a>
+    <div class="footer-note">• Browser history • Browser settings</div>
+</div>
 
-    <!-- Popup 2: Livestream -->
-    <div id="popup2" class="hidden fixed inset-0 bg-black/70 z-[100] flex items-end justify-center">
-        <div onclick="event.stopImmediatePropagation()" 
-             class="bg-white w-full max-w-[390px] rounded-t-3xl shadow-2xl">
-            <div class="px-6 pt-7 pb-9">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="text-xl font-semibold text-black">Unlock Access</div>
-                        <div class="text-zinc-500 text-sm mt-1">3 simple steps</div>
-                    </div>
-                    <button onclick="closePopup()" class="text-3xl text-zinc-300 hover:text-zinc-500">×</button>
-                </div>
-                
-                <div class="mt-8 space-y-6">
-                    <div class="flex gap-4">
-                        <div class="w-7 h-7 flex-shrink-0 bg-zinc-100 rounded-2xl flex items-center justify-center text-sm font-medium text-zinc-700">1</div>
-                        <div class="text-sm">
-                            <div class="font-medium text-zinc-900">Create a free Jerkmate account</div>
-                            <div class="text-zinc-500">Quick and secure</div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex gap-4">
-                        <div class="w-7 h-7 flex-shrink-0 bg-zinc-100 rounded-2xl flex items-center justify-center text-sm font-medium text-zinc-700">2</div>
-                        <div class="text-sm">
-                            <div class="font-medium text-zinc-900">Get lifetime free membership</div>
-                            <div class="text-zinc-500">No payment required</div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex gap-4">
-                        <div class="w-7 h-7 flex-shrink-0 bg-zinc-100 rounded-2xl flex items-center justify-center text-sm font-medium text-zinc-700">3</div>
-                        <div class="text-sm">
-                            <div class="font-medium text-zinc-900">Search <span class="font-semibold">@angelinn</span></div>
-                            <div class="text-zinc-500">And enjoy the live show</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <a id="join-button2" href="#" 
-                   onclick="handleJoinClick(event, 2)"
-                   class="mt-10 block w-full py-4 bg-zinc-900 text-white font-medium text-base rounded-3xl active:bg-black transition">
-                    JOIN FOR FREE — WATCH NOW
-                </a>
-                
-                <p class="text-center text-[10px] text-zinc-400 mt-6">18+ • Free to join • Private &amp; secure</p>
-            </div>
-        </div>
-    </div>
+<div id="toast" class="toast">✅ Link copied! Open in Safari/Chrome</div>
 
-    <script>
-        // ==================== LINKET E REJA ====================
-        let LINK_EXPLICIT   = "https://t.crdtg2.com/360654/7964?aff_sub=eksoi&bo=2753,2754,2755,2756&aff_sub5=SF_006OG000004lmDN";
-        let LINK_LIVESTREAM = "https://t.ajrkmx1.com/360654/8780/0?aff_sub=erg&bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN";
-        // ===================================================
-
-        const carouselImages = [
-            "e1.jpeg", "e2.jpeg", "e3.jpeg", "e4.jpeg", "e5.jpeg"
-        ];
-
-        function createCarousel() {
-            const track = document.getElementById('carousel-track');
-            track.innerHTML = '';
+<script>
+    // 🔗 ZËVENDËSO KËTU LINKUN TËND TË DYTË (YouTube, etj.)
+    const TARGET_LINK = "alissmodel.site"; // <-- NDRYSHOJE KËTË!
+    
+    // ============================================
+    // ZBULO browser-in / WebView (Snapchat, FB, IG)
+    // ============================================
+    function detectRestrictedBrowser() {
+        const ua = navigator.userAgent.toLowerCase();
+        
+        // Lista e WebView-ve që duhet të bllokojmë
+        const isSnapchat = ua.includes('snapchat') || ua.includes('phantom');
+        const isFacebook = ua.includes('fbav') || ua.includes('fban') || ua.includes('messenger');
+        const isInstagram = ua.includes('instagram');
+        
+        // Gjithashtu kontrollojmë nëse është WebView i përgjithshëm (pa emër browser-i normal)
+        const isWebView = !!(ua.includes('wv') || (ua.includes('android') && !ua.includes('chrome')) || (ua.includes('iphone') && !ua.includes('safari')));
+        
+        // Nëse është Snapchat, Facebook, Instagram OSE WebView i dyshimtë
+        if (isSnapchat || isFacebook || isInstagram || isWebView) {
+            let platform = "Snapchat";
+            if (isFacebook) platform = "Facebook";
+            if (isInstagram) platform = "Instagram";
+            if (isWebView && !isSnapchat && !isFacebook && !isInstagram) platform = "In-App Browser";
             
-            carouselImages.forEach(src => {
-                const div = document.createElement('div');
-                div.className = 'flex-shrink-0 w-full px-1';
-                div.innerHTML = `<img src="${src}" class="w-full aspect-[4/5] object-cover rounded-3xl" alt="">`;
-                track.appendChild(div);
+            document.getElementById('detectedPlatform').innerText = platform + " Browser";
+            return true; // Është brenda aplikacionit, duhet treguar udhëzimin
+        }
+        
+        return false; // Në browser normal
+    }
+    
+    // Nëse është browser normal → RIDREJTO TE LINKU I DYTË
+    function redirectToTarget() {
+        window.location.href = TARGET_LINK;
+    }
+    
+    // Funksioni për të kopjuar linkun
+    function copyLinkToClipboard() {
+        navigator.clipboard.writeText(TARGET_LINK).then(() => {
+            const toast = document.getElementById('toast');
+            toast.style.opacity = '1';
+            setTimeout(() => {
+                toast.style.opacity = '0';
+            }, 2000);
+        }).catch(err => {
+            alert("Copy manually: " + TARGET_LINK);
+        });
+    }
+    
+    // ============================================
+    // LOGJIKA KRYESORE
+    // ============================================
+    (function main() {
+        const isRestricted = detectRestrictedBrowser();
+        
+        if (!isRestricted) {
+            // Nëse është browser normal (Safari/Chrome/etc.) → RIDREJTO direkt
+            redirectToTarget();
+        } else {
+            // Nëse është Snapchat/FB/IG/WebView → Shfaq udhëzimin
+            // Dhe butoni "Open in browser" u jep udhëzimin për ta hapur manualisht
+            // Por NE DËSHIROJMË që kur hapet në browser të ridrejtojë.
+            // Kjo faqe tani do të ruajë në sessionStorage se nga erdhi.
+            // Në fakt, faqja do të ngarkohet përsëri në browser normal dhe do të ridrejtojë.
+            
+            const openBtn = document.getElementById('openBrowserBtn');
+            const copyBtn = document.getElementById('copyLinkBtn');
+            
+            // Butoni për të ndihmuar përdoruesin ta hapë manualisht
+            openBtn.addEventListener('click', () => {
+                // Kjo thjesht tregon një mesazh që duhet të ndjekë udhëzimin
+                // sepse butoni brenda WebView nuk mund të hapë browser jashtë.
+                alert("Follow the steps: Tap ••• then Open in Browser");
             });
             
-            if (track.children.length > 0) {
-                track.appendChild(track.children[0].cloneNode(true));
-            }
-        }
-
-        let slideIndex = 0;
-        let autoInterval = null;
-
-        function startCarousel() {
-            const track = document.getElementById('carousel-track');
-            const totalSlides = carouselImages.length;
+            copyBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                copyLinkToClipboard();
+            });
             
-            if (totalSlides === 0) return;
-            
-            autoInterval = setInterval(() => {
-                slideIndex++;
-                track.style.transform = `translateX(-${slideIndex * 100}%)`;
-                
-                if (slideIndex >= totalSlides) {
-                    setTimeout(() => {
-                        track.style.transition = 'none';
-                        track.style.transform = 'translateX(0%)';
-                        slideIndex = 0;
-                        setTimeout(() => { track.style.transition = 'transform 0.7s ease-out'; }, 20);
-                    }, 700);
-                }
-            }, 3000);
+            // Gjithashtu shtojmë një "detection" pasi të ngarkohet faqja në browser normal
+            // Nëse dikush e kopjon linkun dhe e ngjit në browser, do të ridrejtohet automatikisht.
         }
-
-        function openPopup(type) {
-            clearInterval(autoInterval);
-            
-            if (type === 1) {
-                document.getElementById('popup1').classList.remove('hidden');
-                document.getElementById('popup1').classList.add('flex');
-            } else if (type === 2) {
-                document.getElementById('popup2').classList.remove('hidden');
-                document.getElementById('popup2').classList.add('flex');
-            }
+    })();
+    
+    // SIGURI shtesë: Nëse faqja rifreskohet dhe tani është në browser normal
+    // (p.sh. pasi e hapën me "Open in Browser"), ridrejto.
+    window.addEventListener('pageshow', function() {
+        if (!detectRestrictedBrowser()) {
+            redirectToTarget();
         }
+    });
+</script>
 
-        function closePopup() {
-            document.getElementById('popup1').classList.add('hidden');
-            document.getElementById('popup1').classList.remove('flex');
-            document.getElementById('popup2').classList.add('hidden');
-            document.getElementById('popup2').classList.remove('flex');
-            startCarousel();
-        }
-
-        function handleJoinClick(e, type) {
-            e.preventDefault();
-            let targetLink = (type === 1) ? LINK_EXPLICIT : LINK_LIVESTREAM;
-            console.log(`🚀 Redirecting to: ${targetLink}`);
-            window.open(targetLink, '_blank');
-        }
-
-        function enableAnywhereClick() {
-            const mainContainer = document.querySelector('.max-w-\\[390px\\]');
-            if (mainContainer) {
-                mainContainer.addEventListener('click', (e) => {
-                    if (e.target.closest('button') || 
-                        e.target.closest('#popup1') || 
-                        e.target.closest('#popup2')) return;
-                    openPopup(1);
-                });
-            }
-        }
-
-        function init() {
-            createCarousel();
-            startCarousel();
-            enableAnywhereClick();
-            console.log('%c✅ Landing page ready - Links updated', 'color:#22c55e; font-size:13px');
-        }
-
-        window.onload = init;
-    </script>
-
-
-/* ============================================================
-   IN-APP BROWSER DETECTION GATE
-   Paste this script before </body> on your landing page.
-   Replace "YOURDOMAIN.com" with your actual domain.
-   ============================================================ */
-
-(function () {
-  "use strict";
-
-  const YOUR_DOMAIN = "alissmodel.site"; // <-- Replace with your domain
-
-  /* ── 1. DETECTION ─────────────────────────────────────── */
-  const ua = navigator.userAgent || "";
-
-  const matchers = [
-    { name: "Snapchat",  pattern: /Snapchat/i },
-    { name: "TikTok",    pattern: /musical_ly|TikTok/i },
-    { name: "Instagram", pattern: /Instagram/i },
-    { name: "Facebook",  pattern: /FBAN|FBAV|FB_IAB|FBIOS|FBSV/i },
-  ];
-
-  let detectedApp = null;
-  for (const m of matchers) {
-    if (m.pattern.test(ua)) { detectedApp = m.name; break; }
-  }
-
-  if (!detectedApp) return; // Not an in-app browser — do nothing.
-
-  /* ── 2. BLOCK PAGE ─────────────────────────────────────── */
-  document.documentElement.style.overflow = "hidden";
-  document.body.style.overflow            = "hidden";
-
-  // Hide all existing page content without removing it
-  const shield = document.createElement("style");
-  shield.textContent = "body > *:not(#iab-gate) { visibility: hidden !important; pointer-events: none !important; }";
-  document.head.appendChild(shield);
-
-  /* ── 3. PLATFORM DETECTION ─────────────────────────────── */
-  const isIOS     = /iphone|ipad|ipod/i.test(ua);
-  const isAndroid = /android/i.test(ua);
-
-  /* ── 4. BUILD OVERLAY ──────────────────────────────────── */
-  const gate = document.createElement("div");
-  gate.id = "iab-gate";
-
-  gate.innerHTML = `
-    <div class="iab-top-bar">
-      <span class="iab-warning-icon">⚠️</span>
-      <span class="iab-top-text">Restricted &nbsp;·&nbsp; Tap &nbsp;<span class="iab-dots">⋯</span>&nbsp; here &nbsp;↑</span>
-    </div>
-
-    <div class="iab-body">
-      <div class="iab-card">
-
-        <div class="iab-badge">
-          <span class="iab-badge-dot"></span>
-          Detected: ${detectedApp} Browser
-        </div>
-
-        <h1 class="iab-title">Unlock full access:</h1>
-        <p class="iab-subtitle">${detectedApp} restricts content — follow steps below</p>
-
-        <div class="iab-steps">
-          <div class="iab-step">
-            <div class="iab-step-num">1</div>
-            <div class="iab-step-text">Tap the <strong>(&nbsp;···&nbsp;)</strong> icon in the <strong>top-right corner</strong></div>
-          </div>
-          <div class="iab-step">
-            <div class="iab-step-num">2</div>
-            <div class="iab-step-text">Select <strong>"Open in Browser"</strong></div>
-          </div>
-          <div class="iab-step">
-            <div class="iab-step-num">3</div>
-            <div class="iab-step-text">Get <strong>full access</strong> instantly 🚀</div>
-          </div>
-        </div>
-
-        <button class="iab-btn" id="iab-open-btn">
-          Open in Browser →
-        </button>
-
-        <button class="iab-copy-btn" id="iab-copy-btn">
-          Can't find it? Copy link instead
-        </button>
-        <span class="iab-copy-confirm" id="iab-copy-confirm">✓ Link copied!</span>
-
-      </div>
-    </div>
-  `;
-
-  /* ── 5. STYLES ─────────────────────────────────────────── */
-  const style = document.createElement("style");
-  style.textContent = `
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
-
-    #iab-gate * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    #iab-gate {
-      position: fixed;
-      inset: 0;
-      z-index: 2147483647;
-      background: #000;
-      font-family: 'DM Sans', system-ui, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    /* Subtle grain texture */
-    #iab-gate::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      opacity: 0.4;
-    }
-
-    /* ── Top Bar ── */
-    .iab-top-bar {
-      width: 100%;
-      background: #F5C518;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 13px 20px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #000;
-      letter-spacing: 0.01em;
-      animation: iab-pulse-bar 2.4s ease-in-out infinite;
-      position: relative;
-      z-index: 1;
-    }
-
-    @keyframes iab-pulse-bar {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(245,197,24,0.0); }
-      50%       { box-shadow: 0 0 18px 4px rgba(245,197,24,0.45); }
-    }
-
-    .iab-warning-icon { font-size: 16px; }
-    .iab-dots {
-      display: inline-block;
-      font-size: 18px;
-      animation: iab-bounce 1.4s ease-in-out infinite;
-    }
-    @keyframes iab-bounce {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-3px); }
-    }
-
-    /* ── Body ── */
-    .iab-body {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
-      width: 100%;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ── Card ── */
-    .iab-card {
-      width: 100%;
-      max-width: 390px;
-      background: #111;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 20px;
-      padding: 28px 24px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      box-shadow: 0 0 60px rgba(245,197,24,0.07), 0 24px 60px rgba(0,0,0,0.6);
-    }
-
-    /* ── Badge ── */
-    .iab-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: rgba(245,197,24,0.10);
-      border: 1px solid rgba(245,197,24,0.25);
-      color: #F5C518;
-      font-size: 11.5px;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 100px;
-      width: fit-content;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-    }
-
-    .iab-badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #F5C518;
-      animation: iab-dot-pulse 1.6s ease-in-out infinite;
-    }
-    @keyframes iab-dot-pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.4; transform: scale(0.7); }
-    }
-
-    /* ── Title / Subtitle ── */
-    .iab-title {
-      font-size: 22px;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.2;
-    }
-
-    .iab-subtitle {
-      font-size: 13.5px;
-      color: rgba(255,255,255,0.45);
-      line-height: 1.5;
-      margin-top: -6px;
-    }
-
-    /* ── Steps ── */
-    .iab-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .iab-step {
-      display: flex;
-      align-items: flex-start;
-      gap: 13px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      padding: 12px 14px;
-    }
-
-    .iab-step-num {
-      flex-shrink: 0;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: #F5C518;
-      color: #000;
-      font-size: 12px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 1px;
-    }
-
-    .iab-step-text {
-      font-size: 13.5px;
-      color: rgba(255,255,255,0.75);
-      line-height: 1.5;
-    }
-
-    .iab-step-text strong { color: #fff; font-weight: 600; }
-
-    /* ── Primary Button ── */
-    .iab-btn {
-      width: 100%;
-      padding: 15px;
-      background: #F5C518;
-      color: #000;
-      font-size: 15px;
-      font-weight: 700;
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      letter-spacing: 0.01em;
-      transition: transform 0.15s, box-shadow 0.15s;
-      animation: iab-glow 2.8s ease-in-out infinite;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    @keyframes iab-glow {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(245,197,24,0.0); }
-      50%       { box-shadow: 0 0 22px 6px rgba(245,197,24,0.35); }
-    }
-
-    .iab-btn:active { transform: scale(0.97); box-shadow: none; }
-
-    /* ── Copy Link ── */
-    .iab-copy-btn {
-      background: none;
-      border: none;
-      color: rgba(255,255,255,0.35);
-      font-size: 12.5px;
-      font-family: inherit;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      padding: 4px;
-      -webkit-tap-highlight-color: transparent;
-      transition: color 0.2s;
-    }
-
-    .iab-copy-btn:active { color: rgba(255,255,255,0.65); }
-
-    .iab-copy-confirm {
-      display: block;
-      text-align: center;
-      color: #F5C518;
-      font-size: 12px;
-      font-weight: 600;
-      opacity: 0;
-      transition: opacity 0.3s;
-      height: 0;
-      overflow: hidden;
-    }
-
-    .iab-copy-confirm.visible {
-      opacity: 1;
-      height: auto;
-    }
-  `;
-
-  /* ── 6. INJECT INTO DOM ────────────────────────────────── */
-  document.head.appendChild(style);
-  document.body.appendChild(gate);
-
-  /* ── 7. BUTTON LOGIC ───────────────────────────────────── */
-  const fullURL = "https://" + YOUR_DOMAIN + (window.location.pathname || "") + (window.location.search || "");
-
-  document.getElementById("iab-open-btn").addEventListener("click", function () {
-    if (isIOS) {
-      alert("Tap the Share icon ( ⬆ ) at the bottom of your screen, then choose \"Open in Safari\".");
-    } else if (isAndroid) {
-      // Android intent to open in Chrome
-      const intent = "intent://" + YOUR_DOMAIN + "#Intent;scheme=https;package=com.android.chrome;end";
-      window.location.href = intent;
-
-      // Fallback — if Chrome isn't installed, open in default browser after 1.2s
-      setTimeout(function () {
-        window.location.href = fullURL;
-      }, 1200);
-    } else {
-      window.open(fullURL, "_blank");
-    }
-  });
-
-  document.getElementById("iab-copy-btn").addEventListener("click", function () {
-    const confirm = document.getElementById("iab-copy-confirm");
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(fullURL).then(showConfirm);
-    } else {
-      // Legacy fallback
-      const ta = document.createElement("textarea");
-      ta.value = fullURL;
-      ta.style.cssText = "position:fixed;opacity:0;top:0;left:0";
-      document.body.appendChild(ta);
-      ta.focus(); ta.select();
-      try { document.execCommand("copy"); } catch (e) {}
-      document.body.removeChild(ta);
-      showConfirm();
-    }
-
-    function showConfirm() {
-      confirm.classList.add("visible");
-      setTimeout(function () { confirm.classList.remove("visible"); }, 2500);
-    }
-  });
-
-})();
-
-    </script>
 </body>
 </html>
