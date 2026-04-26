@@ -8,192 +8,320 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #0f0f0f;
-      color: #fff;
+      background: #000;
+      color: #000;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
+    /* TOP BAR */
     .bar {
-      background: #FFD93D;
-      padding: 11px 20px;
+      background: #FFFC00;
+      padding: 14px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .bar span:first-child {
+    .bar-left {
+      font-weight: 800;
+      font-size: 18px;
+      color: #000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bar-right {
+      font-size: 16px;
       font-weight: 700;
-      font-size: 13px;
       color: #000;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    .bar span:last-child {
-      font-size: 12px;
-      color: #000;
-      opacity: 0.7;
-    }
-
+    /* MAIN WRAP */
     .wrap {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 32px 24px;
-      gap: 24px;
-      max-width: 400px;
+      padding: 36px 20px 32px;
+      gap: 28px;
+      max-width: 480px;
       margin: 0 auto;
       width: 100%;
     }
 
-    .icon {
-      width: 56px; height: 56px;
+    /* DETECTED CHIP */
+    .detected {
       background: #1a1a1a;
+      border-radius: 100px;
+      padding: 10px 20px;
+      font-size: 15px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .detected-dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: #FFFC00;
+      flex-shrink: 0;
+    }
+
+    /* WHITE CARD */
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      width: 100%;
+      padding: 24px 22px 28px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .snap-icon {
+      width: 64px; height: 64px;
+      background: #FFFC00;
       border-radius: 16px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 26px;
+      flex-shrink: 0;
     }
 
-    .text { text-align: center; }
+    .snap-icon svg { width: 40px; height: 40px; }
 
-    .text h1 {
+    .card-title {
       font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 8px;
+      font-weight: 800;
+      color: #000;
+      margin-bottom: 6px;
     }
 
-    .text p {
-      font-size: 14px;
-      color: #888;
-      line-height: 1.5;
+    .card-desc {
+      font-size: 15px;
+      color: #333;
+      line-height: 1.4;
     }
 
-    .detected {
-      font-size: 12px;
-      color: #ff6b6b;
-      background: rgba(255,107,107,0.1);
-      border: 1px solid rgba(255,107,107,0.2);
-      border-radius: 20px;
-      padding: 6px 14px;
-    }
+    .card-desc b { font-weight: 800; }
 
     .steps {
-      width: 100%;
-      background: #1a1a1a;
-      border-radius: 14px;
-      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
     }
 
     .step {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 16px 18px;
-      border-bottom: 1px solid #222;
+      gap: 16px;
     }
 
-    .step:last-child { border-bottom: none; }
-
     .step-num {
-      width: 26px; height: 26px;
+      width: 32px; height: 32px;
       border-radius: 50%;
-      background: #FFD93D;
+      background: #FFFC00;
       color: #000;
-      font-weight: 700;
-      font-size: 12px;
+      font-weight: 800;
+      font-size: 15px;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
 
     .step-text {
-      font-size: 14px;
-      color: #ccc;
+      font-size: 15px;
+      color: #111;
       line-height: 1.4;
     }
 
-    .step-text b { color: #fff; }
-
-    .btn {
+    /* YELLOW ACTION CARD */
+    .action-card {
+      background: #FFFC00;
+      border-radius: 18px;
       width: 100%;
-      padding: 15px;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      transition: opacity 0.15s;
+      overflow: hidden;
     }
 
-    .btn:active { opacity: 0.8; }
+    .action-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+    }
 
-    .btn-main { background: #FFD93D; color: #000; }
+    .action-main-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 18px;
+      font-weight: 800;
+      color: #000;
+    }
 
-    .btn-copy {
-      background: #1a1a1a;
-      color: #aaa;
-      border: 1px solid #2a2a2a;
-      margin-top: -10px;
+    .action-main-left svg { width: 22px; height: 22px; }
+
+    .action-arrow {
+      font-size: 22px;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .action-divider {
+      height: 1px;
+      background: rgba(0,0,0,0.12);
+      margin: 0 20px;
+    }
+
+    .action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+      cursor: pointer;
+    }
+
+    .action-row + .action-row {
+      border-top: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .action-row span {
+      font-size: 16px;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .action-row .chevron {
+      font-size: 18px;
+      color: rgba(0,0,0,0.4);
+    }
+
+    /* COPY LINK */
+    .copy-line {
+      font-size: 14px;
+      color: #666;
+      text-align: center;
+    }
+
+    .copy-line a {
+      color: #fff;
+      font-weight: 600;
+      text-decoration: underline;
+      cursor: pointer;
     }
 
     .feedback {
-      font-size: 12px;
-      color: #4dff91;
-      height: 14px;
+      font-size: 13px;
+      color: #FFFC00;
+      height: 16px;
       opacity: 0;
       transition: opacity 0.3s;
+      text-align: center;
     }
 
     .feedback.show { opacity: 1; }
+
+    /* FOOTER */
+    .footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #444;
+      border-top: 1px solid #111;
+      margin-top: auto;
+    }
+
+    .footer a { color: #666; text-decoration: none; }
   </style>
 </head>
 <body>
 
   <div class="bar">
-    <span>Restricted</span>
-    <span>Tap ••• to open</span>
+    <div class="bar-left">⚠️ Restricted</div>
+    <div class="bar-right">Tap ••• here &nbsp;↑</div>
   </div>
 
   <div class="wrap">
-    <div class="icon">🔒</div>
 
-    <div class="text">
-      <h1>Open in your browser</h1>
-      <p>This in-app browser blocks content.<br>Follow the steps below.</p>
+    <div class="detected">
+      <div class="detected-dot"></div>
+      <span id="detectedLabel">Detected: In-App Browser</span>
     </div>
 
-    <div class="detected" id="detectedLabel">Detected: In-App Browser</div>
+    <div class="card">
+      <div class="card-header">
+        <div class="snap-icon" id="appIcon">
+          <!-- Snapchat ghost SVG -->
+          <svg viewBox="0 0 100 100" fill="#000" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 8c-13.5 0-22 9.5-22 23.5v3.2c-1.5.7-4.5-.4-5.8 2.8-1 2.6.5 5.5 2.8 6.8-.5 1.5-1.5 3.5-3 5.5-3 4.2-4 6-2.5 8.5 1 1.7 3 2.5 6 2.8.5 1 1 2.5 1.5 3.2.8 1.5 2 2 3.5 2 1 0 2-.3 3-.7 1.5-.5 3-.8 5-.5 1.5.2 3 1.3 5.5 3 1.5 1 3 1.5 5 1.5s3.5-.5 5-1.5c2.5-1.7 4-2.8 5.5-3 2-.3 3.5 0 5 .5 1 .4 2 .7 3 .7 1.5 0 2.7-.5 3.5-2 .5-.7 1-2.2 1.5-3.2 3-.3 5-1.1 6-2.8 1.5-2.5.5-4.3-2.5-8.5-1.5-2-2.5-4-3-5.5 2.3-1.3 3.8-4.2 2.8-6.8-1.3-3.2-4.3-2.1-5.8-2.8v-3.2C72 17.5 63.5 8 50 8z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="card-title" id="cardTitle">Unlock full access:</div>
+          <div class="card-desc" id="cardDesc">Snapchat restricts content follow steps below — <b>New</b></div>
+        </div>
+      </div>
 
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-text">Tap the <b>···</b> icon in the top right corner</div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-text">Select <b>"Open in Browser"</b></div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-text">The page will load instantly ✓</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">Tap the <b>(•••)</b> icon in the top right corner</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text">Select '<b>Open in Browser</b>' from the menu</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">Get the full experience instantly</div>
+        </div>
       </div>
     </div>
 
-    <button class="btn btn-main" onclick="tryOpen()">Open in Browser</button>
-    <button class="btn btn-copy" onclick="copyLink()">Copy link instead</button>
-    <div class="feedback" id="fb">✓ Copied to clipboard</div>
+    <!-- ACTION CARD (visual only, matches screenshot) -->
+    <div class="action-card">
+      <div class="action-main">
+        <div class="action-main-left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          Open in browser
+        </div>
+        <div class="action-arrow">→</div>
+      </div>
+      <div class="action-row" onclick="copyLink()">
+        <span>Browser history</span>
+        <span class="chevron">›</span>
+      </div>
+      <div class="action-row" onclick="copyLink()">
+        <span>Browser settings</span>
+        <span class="chevron">›</span>
+      </div>
+    </div>
+
+    <div class="copy-line">Can't find it? <a onclick="copyLink()">Copy link instead</a></div>
+    <div class="feedback" id="fb">✓ Link copied to clipboard</div>
+
+  </div>
+
+  <div class="footer">
+    © 2026 Dating. <a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a>
   </div>
 
   <script>
     (function () {
-      
-    var T = atob('aHR0cHM6Ly9saW5rdHIuZWUvYWxpc3NrdXNzaWU=');
-
-
+      var T = atob('aHR0cHM6Ly9saW5rdHIuZWUvYWxpc3NrdXNzaWU=');
       var ua = navigator.userAgent || '';
 
       function detect() {
@@ -210,12 +338,16 @@
         return;
       }
 
+      // Update labels
       document.getElementById('detectedLabel').textContent = 'Detected: ' + app + ' Browser';
+      document.getElementById('cardDesc').innerHTML = app + ' restricts content follow steps below — <b>New</b>';
 
-      window.tryOpen = function () {
-        try { window.open(T, '_system'); } catch (e) {}
-        copyLink();
-      };
+      // Change icon for Instagram / Facebook
+      if (app === 'Instagram') {
+        document.getElementById('appIcon').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" width="38" height="38"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="#000" stroke="none"/></svg>';
+      } else if (app === 'Facebook') {
+        document.getElementById('appIcon').innerHTML = '<svg viewBox="0 0 24 24" fill="#000" width="38" height="38"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>';
+      }
 
       window.copyLink = function () {
         var fb = document.getElementById('fb');
