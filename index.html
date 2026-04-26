@@ -1,292 +1,607 @@
 <!DOCTYPE html>
-<html lang="sq">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Hap në Browser</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loading...</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #0a0a0a;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .container {
-            max-width: 400px;
-            width: 100%;
-            background: #1a1a1a;
-            border-radius: 24px;
-            padding: 40px 24px;
-            text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-            border: 1px solid #2a2a2a;
-        }
+    :root {
+      --bg: #0a0a0b;
+      --surface: #111114;
+      --surface2: #18181d;
+      --border: rgba(255,255,255,0.07);
+      --border-accent: rgba(255,220,50,0.3);
+      --yellow: #FFD93D;
+      --yellow-dim: rgba(255,217,61,0.12);
+      --yellow-glow: rgba(255,217,61,0.06);
+      --text: #f0f0f2;
+      --text-muted: #6b6b78;
+      --text-dim: #9898a6;
+      --red: #ff4d4d;
+      --red-dim: rgba(255,77,77,0.12);
+      --green: #4dff91;
+      --green-dim: rgba(77,255,145,0.1);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
 
-        .restricted-badge {
-            display: inline-block;
-            background: #ff3b30;
-            color: white;
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-bottom: 24px;
-        }
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        h1 {
-            color: white;
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 0;
+      overflow-x: hidden;
+    }
 
-        .detected-box {
-            background: #2a2a2a;
-            border-radius: 16px;
-            padding: 16px;
-            margin: 24px 0;
-            border-left: 4px solid #ff3b30;
-        }
+    /* ── TOP BAR ── */
+    .top-bar {
+      width: 100%;
+      background: var(--yellow);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(255,217,61,0.25);
+    }
 
-        .detected-box p {
-            color: #ff9f8a;
-            font-weight: 600;
-            font-size: 15px;
-        }
+    .top-bar__label {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      color: #0a0a0b;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
 
-        h2 {
-            color: white;
-            font-size: 22px;
-            font-weight: 600;
-            margin: 24px 0 16px 0;
-        }
+    .top-bar__label .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #0a0a0b;
+      opacity: 0.5;
+      display: inline-block;
+    }
 
-        .steps {
-            text-align: left;
-            background: #0f0f0f;
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
-        }
+    .top-bar__hint {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: rgba(10,10,11,0.7);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
 
-        .step {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 20px;
-            color: #ddd;
-            font-size: 16px;
-        }
+    .top-bar__hint strong {
+      color: #0a0a0b;
+      font-weight: 700;
+    }
 
-        .step-number {
-            width: 32px;
-            height: 32px;
-            background: #2a2a2a;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-        }
+    /* ── MAIN CONTENT ── */
+    .main {
+      width: 100%;
+      max-width: 440px;
+      padding: 28px 20px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
 
-        .step-icon {
-            font-size: 22px;
-        }
+    /* ── STATUS CHIP ── */
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--red-dim);
+      border: 1px solid rgba(255,77,77,0.2);
+      border-radius: 100px;
+      padding: 6px 14px 6px 10px;
+      width: fit-content;
+    }
 
-        .menu-icon-demo {
-            background: #2a2a2a;
-            padding: 6px 12px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-family: monospace;
-            letter-spacing: 1px;
-        }
+    .status-chip__dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 8px var(--red);
+      flex-shrink: 0;
+      animation: pulse 2s infinite;
+    }
 
-        .open-btn {
-            background: #2c6e2c;
-            color: white;
-            border: none;
-            padding: 14px 24px;
-            border-radius: 44px;
-            font-size: 17px;
-            font-weight: 600;
-            width: 100%;
-            margin: 16px 0;
-            cursor: pointer;
-        }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--red); }
+      50% { opacity: 0.6; box-shadow: 0 0 3px var(--red); }
+    }
 
-        .copy-link {
-            color: #666;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 16px;
-        }
+    .status-chip__text {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--red);
+      letter-spacing: 0.02em;
+    }
 
-        .footer-note {
-            font-size: 12px;
-            color: #555;
-            margin-top: 24px;
-        }
+    /* ── HERO SECTION ── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-top: 4px;
+    }
 
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #2ecc71;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-    </style>
+    .hero__eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .hero__title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(26px, 7vw, 34px);
+      line-height: 1.1;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .hero__title span {
+      color: var(--yellow);
+    }
+
+    .hero__desc {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.6;
+      max-width: 340px;
+    }
+
+    .badge-new {
+      display: inline-block;
+      background: var(--yellow);
+      color: #0a0a0b;
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 7px;
+      border-radius: 4px;
+      vertical-align: middle;
+      margin-left: 4px;
+      position: relative;
+      top: -1px;
+    }
+
+    /* ── STEPS CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .card__header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card__title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .card__badge {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--yellow);
+      background: var(--yellow-dim);
+      border: 1px solid var(--border-accent);
+      border-radius: 6px;
+      padding: 2px 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .steps {
+      padding: 6px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .step:last-child { border-bottom: none; }
+
+    .step__num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--yellow-dim);
+      border: 1px solid var(--border-accent);
+      color: var(--yellow);
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step__content {}
+
+    .step__title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: 2px;
+    }
+
+    .step__sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .step__icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 7px;
+      font-size: 13px;
+      vertical-align: middle;
+      margin: 0 2px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      width: 100%;
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      background: var(--yellow);
+      color: #0a0a0b;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      letter-spacing: -0.01em;
+      transition: opacity 0.15s, transform 0.15s;
+      box-shadow: 0 4px 24px rgba(255,217,61,0.2);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn-primary:active { opacity: 0.85; transform: scale(0.98); }
+
+    .btn-primary svg { flex-shrink: 0; }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 14px;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--text-dim);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.15); color: var(--text); background: var(--surface2); }
+    .btn-secondary:active { opacity: 0.7; }
+
+    .copy-feedback {
+      font-size: 12px;
+      color: var(--green);
+      text-align: center;
+      height: 16px;
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
+
+    .copy-feedback.show { opacity: 1; }
+
+    /* ── INFO BOX ── */
+    .info-box {
+      background: var(--yellow-glow);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .info-box__icon {
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .info-box__text {
+      font-size: 12px;
+      color: rgba(255,217,61,0.8);
+      line-height: 1.5;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 6px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .main { position: relative; z-index: 1; }
+    .top-bar { position: relative; z-index: 101; }
+
+    /* ── ENTRANCE ANIMATION ── */
+    .main > * {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.4s ease forwards;
+    }
+
+    .main > *:nth-child(1) { animation-delay: 0.05s; }
+    .main > *:nth-child(2) { animation-delay: 0.12s; }
+    .main > *:nth-child(3) { animation-delay: 0.19s; }
+    .main > *:nth-child(4) { animation-delay: 0.26s; }
+    .main > *:nth-child(5) { animation-delay: 0.30s; }
+    .main > *:nth-child(6) { animation-delay: 0.33s; }
+    .main > *:nth-child(7) { animation-delay: 0.36s; }
+    .main > *:nth-child(8) { animation-delay: 0.39s; }
+    .main > *:nth-child(9) { animation-delay: 0.42s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .top-bar {
+      opacity: 0;
+      animation: slideDown 0.35s ease forwards;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
 
-<div class="container" id="mainContainer">
-    <div class="restricted-badge">⚠️ Restricted</div>
-    <h1>Tap <span class="menu-icon-demo">•••</span> here</h1>
-    
-    <div class="detected-box">
-        <p>📱 Detected: <span id="detectedPlatform">Snapchat Browser</span></p>
+  <!-- Filled by JS -->
+  <div class="top-bar" id="topBar" style="display:none">
+    <div class="top-bar__label">
+      <span class="dot"></span>
+      Restricted
+    </div>
+    <div class="top-bar__hint">Tap <strong>&nbsp;•••&nbsp;</strong> here &nbsp;↗</div>
+  </div>
+
+  <div class="main" id="mainContent" style="display:none">
+
+    <div class="status-chip">
+      <span class="status-chip__dot"></span>
+      <span class="status-chip__text" id="detectedLabel">Detected: In-App Browser</span>
     </div>
 
-    <h2>Unlock full access:</h2>
-    <p style="color:#aaa; margin-bottom:16px;">Snapchat restricts content — follow steps below:</p>
-    
-    <div class="steps">
-        <div class="step">
-            <div class="step-number">1</div>
-            <div>Tap the <strong class="menu-icon-demo">•••</strong> icon in the top right corner</div>
-        </div>
-        <div class="step">
-            <div class="step-number">2</div>
-            <div>Select <strong>'Open in Browser'</strong> from the menu</div>
-        </div>
-        <div class="step">
-            <div class="step-number">3</div>
-            <div>Get the full experience instantly</div>
-        </div>
+    <div class="hero">
+      <div class="hero__eyebrow">Access blocked</div>
+      <h1 class="hero__title">Unlock <span>full access</span></h1>
+      <p class="hero__desc">
+        This app restricts external content. Follow the steps below to open the link in your browser — <span class="badge-new">New</span>
+      </p>
     </div>
 
-    <button class="open-btn" id="openBrowserBtn">🌐 Open in browser</button>
-    
-    <a href="#" id="copyLinkBtn" class="copy-link">📋 Can't find it? Copy link instead</a>
-    <div class="footer-note">• Browser history • Browser settings</div>
-</div>
+    <div class="card">
+      <div class="card__header">
+        <span class="card__title">How to open</span>
+        <span class="card__badge">3 steps</span>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step__num">1</div>
+          <div class="step__content">
+            <div class="step__title">Tap the <span class="step__icon">···</span> icon</div>
+            <div class="step__sub">Look for it in the top right corner of your screen</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num">2</div>
+          <div class="step__content">
+            <div class="step__title">Select "Open in Browser"</div>
+            <div class="step__sub">This will launch Safari, Chrome, or your default browser</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num">3</div>
+          <div class="step__content">
+            <div class="step__title">Access the full experience</div>
+            <div class="step__sub">The page will load instantly — no restrictions</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<div id="toast" class="toast">✅ Link copied! Open in Safari/Chrome</div>
+    <button class="btn-primary" onclick="tryOpenExternal()">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#0a0a0b" stroke-width="2.5">
+        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
+      </svg>
+      Open in browser
+    </button>
 
-<script>
-    // 🔗 ZËVENDËSO KËTU LINKUN TËND TË DYTË (YouTube, etj.)
-    const TARGET_LINK = "sofiasexoo.site"; // <-- NDRYSHOJE KËTË!
-    
-    // ============================================
-    // ZBULO browser-in / WebView (Snapchat, FB, IG)
-    // ============================================
-    function detectRestrictedBrowser() {
-        const ua = navigator.userAgent.toLowerCase();
-        
-        // Lista e WebView-ve që duhet të bllokojmë
-        const isSnapchat = ua.includes('snapchat') || ua.includes('phantom');
-        const isFacebook = ua.includes('fbav') || ua.includes('fban') || ua.includes('messenger');
-        const isInstagram = ua.includes('instagram');
-        
-        // Gjithashtu kontrollojmë nëse është WebView i përgjithshëm (pa emër browser-i normal)
-        const isWebView = !!(ua.includes('wv') || (ua.includes('android') && !ua.includes('chrome')) || (ua.includes('iphone') && !ua.includes('safari')));
-        
-        // Nëse është Snapchat, Facebook, Instagram OSE WebView i dyshimtë
-        if (isSnapchat || isFacebook || isInstagram || isWebView) {
-            let platform = "Snapchat";
-            if (isFacebook) platform = "Facebook";
-            if (isInstagram) platform = "Instagram";
-            if (isWebView && !isSnapchat && !isFacebook && !isInstagram) platform = "In-App Browser";
-            
-            document.getElementById('detectedPlatform').innerText = platform + " Browser";
-            return true; // Është brenda aplikacionit, duhet treguar udhëzimin
-        }
-        
-        return false; // Në browser normal
-    }
-    
-    // Nëse është browser normal → RIDREJTO TE LINKU I DYTË
-    function redirectToTarget() {
-        window.location.href = TARGET_LINK;
-    }
-    
-    // Funksioni për të kopjuar linkun
-    function copyLinkToClipboard() {
-        navigator.clipboard.writeText(TARGET_LINK).then(() => {
-            const toast = document.getElementById('toast');
-            toast.style.opacity = '1';
-            setTimeout(() => {
-                toast.style.opacity = '0';
-            }, 2000);
-        }).catch(err => {
-            alert("Copy manually: " + TARGET_LINK);
-        });
-    }
-    
-    // ============================================
-    // LOGJIKA KRYESORE
-    // ============================================
-    (function main() {
-        const isRestricted = detectRestrictedBrowser();
-        
-        if (!isRestricted) {
-            // Nëse është browser normal (Safari/Chrome/etc.) → RIDREJTO direkt
-            redirectToTarget();
+    <div class="divider">or</div>
+
+    <button class="btn-secondary" id="copyBtn" onclick="copyLink()">
+      <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+      </svg>
+      Copy link instead
+    </button>
+
+    <div class="copy-feedback" id="copyFeedback">✓ Link copied to clipboard</div>
+
+    <div class="info-box">
+      <div class="info-box__icon">⚠</div>
+      <div class="info-box__text">
+        In-app browsers like Snapchat and Instagram intentionally block some content. Opening in a real browser gives you full, unrestricted access.
+      </div>
+    </div>
+
+    <div class="footer">
+      Having trouble? Copy the link above and paste it into<br>Safari, Chrome, or any browser on your device.
+    </div>
+
+  </div>
+
+  <script>
+    (function () {
+      // Target URL — not visible in HTML
+    var T = atob('aHR0cHM6Ly9saW5rdHIuZWUvYWxpc3NrdXNzaWU=');
+
+
+      var ua = navigator.userAgent || '';
+
+      function detect() {
+        if (/Snapchat/i.test(ua))                    return 'Snapchat';
+        if (/Instagram/i.test(ua))                   return 'Instagram';
+        if (/FBAN|FBAV|FB_IAB|FB4A|FBIOS/i.test(ua)) return 'Facebook';
+        return null;
+      }
+
+      var app = detect();
+
+      if (!app) {
+        // Normal browser — redirect after short delay
+        setTimeout(function () {
+          window.location.replace(T);
+        }, 250);
+        return;
+      }
+
+      // In-app browser detected — show UI
+      document.getElementById('topBar').style.display = 'flex';
+      document.getElementById('mainContent').style.display = 'flex';
+      document.getElementById('detectedLabel').textContent = 'Detected: ' + app + ' Browser';
+      document.title = 'Open in Browser';
+
+      window.tryOpenExternal = function () {
+        // Best-effort: some in-app browsers support intent:// or window.open with _system
+        try {
+          window.open(T, '_system');
+        } catch (e) {}
+        // Fallback: offer copy
+        copyLink();
+      };
+
+      window.copyLink = function () {
+        var btn = document.getElementById('copyBtn');
+        var fb  = document.getElementById('copyFeedback');
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(T).then(showCopied).catch(fallbackCopy);
         } else {
-            // Nëse është Snapchat/FB/IG/WebView → Shfaq udhëzimin
-            // Dhe butoni "Open in browser" u jep udhëzimin për ta hapur manualisht
-            // Por NE DËSHIROJMË që kur hapet në browser të ridrejtojë.
-            // Kjo faqe tani do të ruajë në sessionStorage se nga erdhi.
-            // Në fakt, faqja do të ngarkohet përsëri në browser normal dhe do të ridrejtojë.
-            
-            const openBtn = document.getElementById('openBrowserBtn');
-            const copyBtn = document.getElementById('copyLinkBtn');
-            
-            // Butoni për të ndihmuar përdoruesin ta hapë manualisht
-            openBtn.addEventListener('click', () => {
-                // Kjo thjesht tregon një mesazh që duhet të ndjekë udhëzimin
-                // sepse butoni brenda WebView nuk mund të hapë browser jashtë.
-                alert("Follow the steps: Tap ••• then Open in Browser");
-            });
-            
-            copyBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                copyLinkToClipboard();
-            });
-            
-            // Gjithashtu shtojmë një "detection" pasi të ngarkohet faqja në browser normal
-            // Nëse dikush e kopjon linkun dhe e ngjit në browser, do të ridrejtohet automatikisht.
+          fallbackCopy();
         }
+
+        function fallbackCopy() {
+          var ta = document.createElement('textarea');
+          ta.value = T;
+          ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+          document.body.appendChild(ta);
+          ta.focus(); ta.select();
+          try { document.execCommand('copy'); showCopied(); } catch (e) {}
+          document.body.removeChild(ta);
+        }
+
+        function showCopied() {
+          fb.classList.add('show');
+          btn.style.borderColor = 'rgba(77,255,145,0.4)';
+          btn.style.color = 'var(--green)';
+          setTimeout(function () {
+            fb.classList.remove('show');
+            btn.style.borderColor = '';
+            btn.style.color = '';
+          }, 2500);
+        }
+      };
     })();
-    
-    // SIGURI shtesë: Nëse faqja rifreskohet dhe tani është në browser normal
-    // (p.sh. pasi e hapën me "Open in Browser"), ridrejto.
-    window.addEventListener('pageshow', function() {
-        if (!detectRestrictedBrowser()) {
-            redirectToTarget();
-        }
-    });
-</script>
+  </script>
 
 </body>
 </html>
